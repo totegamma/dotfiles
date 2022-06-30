@@ -1,7 +1,16 @@
 
 # Basics
+## PATH
+PATH=~/Library/Python/3.8/bin:$PATH
+
 ## sudo の後ろでコマンド名を補完する
 zstyle ':completion:*:sudo:*' command-path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
+
+## PROMPT
+PROMPT="%F{111}[%n@%D{%H:%M}]%f%~%# "
+
+## homebrew
+eval $(/opt/homebrew/bin/brew shellenv)
 
 # initialize zplug
 source ~/.zplug/init.zsh
@@ -28,24 +37,6 @@ if ! zplug check --verbose; then
 	if read -q; then
 		echo; zplug install
 	fi
-fi
-
-# Configure Powerline
-function powerline_precmd() {
-    PS1="$(powerline-shell --shell zsh $?)"
-}
-
-function install_powerline_precmd() {
-	for s in "${precmd_functions[@]}"; do
-		if [ "$s" = "powerline_precmd" ]; then
-			return
-		fi
-	done
-	precmd_functions+=(powerline_precmd)
-}
-
-if [ "$TERM" != "linux" ]; then
-	install_powerline_precmd
 fi
 
 zplug load
