@@ -18,6 +18,14 @@ else
 	PATH=~/.local/bin:$PATH
 fi
 
+## history
+export HISTFILE="${HOME}/.cache/shell/zsh_history"
+export HISTORY_IGNORE="(ls|cd|pwd|exit)"
+export HISTSIZE=1000
+export SAVEHIST=100000
+setopt share_history
+setopt hist_ignore_dups
+
 ## cdr
 if [ ! -d ~/.cache/shell ]; then
 	mkdir -p ~/.cache/shell
