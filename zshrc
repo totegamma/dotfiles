@@ -7,7 +7,11 @@ zstyle ':completion:*:sudo:*' command-path /bin /sbin /usr/bin /usr/sbin /usr/lo
 ## PROMPT
 setopt promptsubst
 function set_prompt {
-	PROMPT="%F{$(tmux display -p '#{?pane_pipe,yellow,cyan}')}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
+	if $(tmux has-session &> /dev/null); then
+		PROMPT="%F{$(tmux display -p '#{?pane_pipe,yellow,cyan}')}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
+	else
+		PROMPT="%F{cyan}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
+	fi
 }
 set_prompt
 precmd_functions+=(set_prompt)
