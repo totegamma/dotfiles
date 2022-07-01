@@ -5,7 +5,7 @@
 zstyle ':completion:*:sudo:*' command-path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
 
 ## PROMPT
-PROMPT="%F{111}[%n@%D{%H:%M}]%f%~%# "
+PROMPT="%F{cyan}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
 
 # arch specific settings
 if [ "$OSTYPE" != linux-gnu ]; then  # Is this the macOS system?
@@ -80,7 +80,7 @@ zplug "mrowa44/emojify", as:command
 # lsに色を付ける
 zplug "zpm-zsh/ls"
 # abbr
-zplug "mono-lab/zsh-abbrev-alias"
+zplug "momo-lab/zsh-abbrev-alias"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then

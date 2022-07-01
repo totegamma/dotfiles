@@ -21,10 +21,13 @@ if [ ! -d ~/.zplug ]; then
 fi
 
 ##install powerline-status
-if [ ! $(pip3 show powerline-status &> /dev/null) ]; then
+if ! $(pip3 show powerline-status &> /dev/null); then
 	pip3 install powerline-status
 fi
 
+if ! $(pip3 show powerline-gitstatus &> /dev/null); then
+	pip3 install powerline-gitstatus
+fi
 
 # COPY
 cp $SCRIPT_DIR/zshrc ~/.zshrc
