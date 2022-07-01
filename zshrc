@@ -92,3 +92,9 @@ fi
 
 zplug load
 
+## abbr
+abbrev-alias -g G="| grep"
+abbrev-alias -g P="| peco"
+
+
+
