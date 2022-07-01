@@ -95,6 +95,10 @@ zplug load
 ## abbr
 abbrev-alias -g G="| grep"
 abbrev-alias -g P="| peco"
+abbrev-alias -g H="| head"
+abbrev-alias -g T="| tail"
+abbrev-alias -g N="&> /dev/null"
+abbrev-alias -g reload="source ~/.zshrc"
 
 
 
