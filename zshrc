@@ -1,7 +1,5 @@
 
 # Basics
-## PATH
-PATH=~/Library/Python/3.8/bin:$PATH
 
 ## sudo の後ろでコマンド名を補完する
 zstyle ':completion:*:sudo:*' command-path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
@@ -9,8 +7,59 @@ zstyle ':completion:*:sudo:*' command-path /bin /sbin /usr/bin /usr/sbin /usr/lo
 ## PROMPT
 PROMPT="%F{111}[%n@%D{%H:%M}]%f%~%# "
 
-## homebrew
-eval $(/opt/homebrew/bin/brew shellenv)
+# arch specific settings
+if [ "$OSTYPE" != linux-gnu ]; then  # Is this the macOS system?
+	## homebrew
+	eval $(/opt/homebrew/bin/brew shellenv)
+	## PATH
+	PATH=~/Library/Python/3.8/bin:$PATH
+else
+	PATH=~/.local/lib/python3.8/site-packages:$PATH
+	PATH=~/.local/bin:$PATH
+fi
+
+## cdr
+if [ ! -d ~/.cache/shell ]; then
+	mkdir -p ~/.cache/shell
+fi
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
+zstyle ':completion:*' recent-dirs-insert both
+zstyle ':chpwd:*' recent-dirs-max 500
+zstyle ':chpwd:*' recent-dirs-default true
+zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/shell/chpwd-recent-dirs"
+zstyle ':chpwd:*' recent-dirs-pushd true
+
+# peco
+## 過去に実行したコマンドを選択。ctrl-rにバインド
+function peco-select-history() {
+  BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+
+## search a destination from cdr list
+function peco-get-destination-from-cdr() {
+  cdr -l | \
+  sed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
+  peco --query "$LBUFFER"
+}
+
+## 過去に移動したことのあるディレクトリを選択。ctrl-uにバインド
+function peco-cdr() {
+  local destination="$(peco-get-destination-from-cdr)"
+  if [ -n "$destination" ]; then
+    BUFFER="cd $destination"
+    zle accept-line
+  else
+    zle reset-prompt
+  fi
+}
+zle -N peco-cdr
+bindkey '^u' peco-cdr
 
 # initialize zplug
 source ~/.zplug/init.zsh
@@ -30,6 +79,8 @@ zplug "chrissicool/zsh-256color"
 zplug "mrowa44/emojify", as:command
 # lsに色を付ける
 zplug "zpm-zsh/ls"
+# abbr
+zplug "mono-lab/zsh-abbrev-alias"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
