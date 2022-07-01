@@ -38,7 +38,7 @@ if [[ $1 = "ssh" ]]; then
 			fi
 		done
 	fi
-	echo " ssh:$user@$host "
+	echo " #[fg=white]REMOTE ssh:$user@$host #[fg=brightblack,bg=default]"
 else
 	cd $CURRENTDIR && python3 ~/.tmux/powerline-client.py tmux left -p ~/.tmux/powerline
 fi
