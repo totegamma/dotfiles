@@ -51,6 +51,14 @@ if ! $(pip3 show powerline-gitstatus &> /dev/null); then
 	pip3 install powerline-gitstatus
 fi
 
+## install tmux
+if ! command -v tmux &> /dev/null ; then
+	if [ "$OSTYPE" = linux-gnu ]; then
+		apt install -y tmux
+	fi
+fi 
+
+
 # COPY
 cp $SCRIPT_DIR/zshrc ~/.zshrc
 cp $SCRIPT_DIR/vimrc ~/.vimrc
