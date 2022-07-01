@@ -12,14 +12,14 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 ## install zsh
 if ! command -v zsh &> /dev/null ; then
 	if [ "$OSTYPE" = linux-gnu ]; then
-		apt install -y zsh
+		sudo apt install -y zsh
 	fi
 fi
 
 ## install curl
 if ! command -v curl &> /dev/null ; then
 	if [ "$OSTYPE" = linux-gnu ]; then
-		apt install -y curl
+		sudo apt install -y curl
 	fi
 fi 
 
@@ -31,14 +31,14 @@ fi
 ## install python3
 if ! command -v python3 &> /dev/null ; then
 	if [ "$OSTYPE" = linux-gnu ]; then
-		apt install -y python3
+		sudo apt install -y python3
 	fi
 fi 
 
 ## install pip3
 if ! command -v pip3 &> /dev/null ; then
 	if [ "$OSTYPE" = linux-gnu ]; then
-		apt install -y python3-pip
+		sudo apt install -y python3-pip
 	fi
 fi 
 
@@ -54,9 +54,17 @@ fi
 ## install tmux
 if ! command -v tmux &> /dev/null ; then
 	if [ "$OSTYPE" = linux-gnu ]; then
-		apt install -y tmux
+		sudo apt install -y tmux
 	fi
 fi 
+
+## install vim
+if ! command -v vim &> /dev/null ; then
+	if [ "$OSTYPE" = linux-gnu ]; then
+		sudo apt install -y vim
+	fi
+fi 
+
 
 
 # COPY
