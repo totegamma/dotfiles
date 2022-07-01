@@ -12,35 +12,35 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 ## install zsh
 if ! command -v zsh &> /dev/null ; then
 	if [ "$OSTYPE" = linux-gnu ]; then
-		sudo apt install -y zsh
+		apt install -y zsh
 	fi
 fi
 
 ## install curl
 if ! command -v curl &> /dev/null ; then
 	if [ "$OSTYPE" = linux-gnu ]; then
-		sudo apt install -y curl
+		apt install -y curl
 	fi
-fi 
+fi
 
 ## install zplug
 if [ ! -d ~/.zplug ]; then
-	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+	git clone https://github.com/zplug/zplug ~/.zplug
 fi
 
 ## install python3
 if ! command -v python3 &> /dev/null ; then
 	if [ "$OSTYPE" = linux-gnu ]; then
-		sudo apt install -y python3
+		apt install -y python3
 	fi
-fi 
+fi
 
 ## install pip3
 if ! command -v pip3 &> /dev/null ; then
 	if [ "$OSTYPE" = linux-gnu ]; then
-		sudo apt install -y python3-pip
+		apt install -y python3-pip
 	fi
-fi 
+fi
 
 ##install powerline-status
 if ! $(pip3 show powerline-status &> /dev/null); then
@@ -54,18 +54,23 @@ fi
 ## install tmux
 if ! command -v tmux &> /dev/null ; then
 	if [ "$OSTYPE" = linux-gnu ]; then
-		sudo apt install -y tmux
+		apt install -y tmux
 	fi
-fi 
+fi
 
 ## install vim
 if ! command -v vim &> /dev/null ; then
 	if [ "$OSTYPE" = linux-gnu ]; then
-		sudo apt install -y vim
+		apt install -y vim
 	fi
-fi 
+fi
 
-
+## install peco
+if ! command -v peco &> /dev/null ; then
+	if [ "$OSTYPE" = linux-gnu ]; then
+		apt install -y peco
+	fi
+fi
 
 # COPY
 cp $SCRIPT_DIR/zshrc ~/.zshrc
