@@ -15,10 +15,32 @@ if ! command -v zsh &> /dev/null ; then
 		apt install -y zsh
 	fi
 fi
+
+## install curl
+if ! command -v curl &> /dev/null ; then
+	if [ "$OSTYPE" = linux-gnu ]; then
+		apt install -y curl
+	fi
+fi 
+
 ## install zplug
 if [ ! -d ~/.zplug ]; then
 	curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 fi
+
+## install python3
+if ! command -v python3 &> /dev/null ; then
+	if [ "$OSTYPE" = linux-gnu ]; then
+		apt install -y python3
+	fi
+fi 
+
+## install pip3
+if ! command -v pip3 &> /dev/null ; then
+	if [ "$OSTYPE" = linux-gnu ]; then
+		apt install -y python3-pip
+	fi
+fi 
 
 ##install powerline-status
 if ! $(pip3 show powerline-status &> /dev/null); then
