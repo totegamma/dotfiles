@@ -6,22 +6,11 @@ zstyle ':completion:*:sudo:*' command-path /bin /sbin /usr/bin /usr/sbin /usr/lo
 
 ## PROMPT
 setopt promptsubst
-#PROMPT="%F{$(if $RECORDING; then echo 'orange'; else echo 'cyan'; fi)}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
-#PROMPT="\$(if $RECORDING; then echo 'orange'; else echo 'cyan'; fi)[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
-
-#
-#function myprompt {
-#	if [ "$RECORDING" = true ]; then
-#		PS1="%F{orange}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
-#	else
-#		PS1="%F{cyan}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
-#	fi
-#}
-#PROMPT=`myprompt`
-#myprompt > /dev/null
-#
-
-PROMPT="%F{$(tmux display -p '#{?pane_pipe,orange,cyan}')}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$(tmux display -p '#{pane_pipe}')$ "
+function set_prompt {
+	PROMPT="%F{$(tmux display -p '#{?pane_pipe,yellow,cyan}')}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
+}
+set_prompt
+precmd_functions+=(set_prompt)
 
 # arch specific settings
 if [ "$OSTYPE" != linux-gnu ]; then  # Is this the macOS system?
@@ -126,25 +115,15 @@ abbrev-alias -g reload="source ~/.zshrc"
 abbrev-alias -g B="then echo 'y'; else echo 'n'; fi"
 
 function startrec() {
-	if $RECORDING; then
-		echo "you must stop recording first."
-		return -1
-	fi
 	if [ -v TMUX ]; then
-		export RECORDING=true
-		tmux pipe-pane "cat >> $1"
+		tmux pipe-pane "cat >> ~/.tmux/log/$(date +'%Y%m%d-%H%M%S').log"
 	else
 		echo "you must on tmux."
 	fi
 }
 
 function stoprec() {
-	if ! $RECORDING; then
-		echo "you must start recording first."
-		return -1
-	fi
 	if [ -v TMUX ]; then
-		export RECORDING=false
 		tmux pipe-pane
 	else
 		echo "you must on tmux."
