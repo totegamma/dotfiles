@@ -1,12 +1,17 @@
 #!/bin/bash
 
+# VARIABLES
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
-
-#if [ "$OSTYPE" != linux-gnu ]; then  # Is this the macOS system?
-#	# instlal brew
-#	brew install coreutils
-#fi
+if [ "$OSTYPE" = linux-gnu ]; then  # Is this linux?
+	$COPYBIN="xsel -bi"
+else
+	if [[ "$(uname -r)" == *microsoft* ]]; then # Is this WSL?
+		$COPYBIN="clip.exe"
+	else # This is MacOS
+		$COPYBIN="pbcopy"
+	fi
+fi
 
 # INSTALL
 ## install zsh
@@ -81,5 +86,7 @@ cp -R $SCRIPT_DIR/tmux/* ~/.tmux
 
 # POSTPROCESS
 sed -i -e "s%<POWERLINE.CONF>%$(pip3 show powerline-status | awk '/Location/{print $2}')/powerline/bindings/tmux/powerline.conf%g" ~/.tmux.conf
+sed -i -e "s%<COPYBIN>%$COPYBIN%g" ~/.tmux.conf
+
 
 
