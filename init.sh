@@ -3,13 +3,13 @@
 # VARIABLES
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
-if [ "$OSTYPE" = linux-gnu ]; then  # Is this linux?
-	$COPYBIN="xsel -bi"
+if [[ "$(uname -r)" == *microsoft* ]]; then # Is this WSL?
+	COPYBIN='clip.exe'
 else
-	if [[ "$(uname -r)" == *microsoft* ]]; then # Is this WSL?
-		$COPYBIN="clip.exe"
+	if [ "$OSTYPE" = linux-gnu ]; then  # Is this linux?
+		COPYBIN='xsel -bi'
 	else # This is MacOS
-		$COPYBIN="pbcopy"
+		COPYBIN='pbcopy'
 	fi
 fi
 
