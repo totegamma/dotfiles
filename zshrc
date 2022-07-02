@@ -114,9 +114,13 @@ abbrev-alias -g G="| grep"
 abbrev-alias -g P="| peco"
 abbrev-alias -g H="| head"
 abbrev-alias -g T="| tail"
+abbrev-alias -g E="| sed -e 's/\x1b\[[0-9;]*m//g'"
 abbrev-alias -g N="&> /dev/null"
-abbrev-alias -g reload="source ~/.zshrc"
 abbrev-alias -g B="then echo 'y'; else echo 'n'; fi"
+abbrev-alias -g reload="source ~/.zshrc"
+
+abbrev-alias -g dc="docker-compose"
+abbrev-alias -g gcm="git commit -m"
 
 function startrec() {
 	if [ -v TMUX ]; then

@@ -62,7 +62,9 @@ cp $SCRIPT_DIR/zshrc ~/.zshrc
 cp $SCRIPT_DIR/vimrc ~/.vimrc
 cp $SCRIPT_DIR/tmux.conf ~/.tmux.conf
 mkdir -p ~/.tmux
+mkdir -p ~/.config
 cp -R $SCRIPT_DIR/tmux/* ~/.tmux
+cp -R $SCRIPT_DIR/config/* ~/.config
 
 # POSTPROCESS
 sed -i -e "s%<POWERLINE.CONF>%$(pip3 show powerline-status | awk '/Location/{print $2}')/powerline/bindings/tmux/powerline.conf%g" ~/.tmux.conf
