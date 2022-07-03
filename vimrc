@@ -146,8 +146,8 @@ endif
 
 " ### キーリマップの設定
 
-" w!! でスーパーユーザーとして保存（sudoが使える環境限定）
-cmap w!! w !sudo tee > /dev/null %
+" W でスーパーユーザーとして保存（sudoが使える環境限定）
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " ESCを二回押すことでハイライトを消す
 nmap <silent> <Esc><Esc> :nohlsearch<CR>
 " カーソル下の単語を * で検索
