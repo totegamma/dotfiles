@@ -122,6 +122,12 @@ abbrev-alias -g reload="source ~/.zshrc"
 abbrev-alias -g dc="docker-compose"
 abbrev-alias -g gcm="git commit -m"
 
+
+# alias & functions
+
+alias da='docker exec -it $(docker ps | peco | awk "{print \$1}") bash'
+alias ds='docker stop -it $(docker ps | peco | awk "{print \$1}") bash'
+
 function startrec() {
 	if [ -v TMUX ]; then
 		tmux pipe-pane "cat >> ~/.tmux/log/$(date +'%Y%m%d-%H%M%S').log"
@@ -137,5 +143,6 @@ function stoprec() {
 		echo "you must on tmux."
 	fi
 }
+
 
 
