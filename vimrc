@@ -1,13 +1,4 @@
- "-=-=-=-=-=-=-=-=-=-=--"
- " .vimrc               "
- " created by totegamma "
- " https://gammalab.net "
- "-=-=-=-=-=-=-=-=-=-=-="
 
-
-" プラグイン管理ツールとしてdein.vimを使う。
-
-" ### 定数等の設定
 
 " dein.vimが置かれる場所
 let s:deinDir = expand("~/.vim/dein")
@@ -15,9 +6,6 @@ let s:deinDir = expand("~/.vim/dein")
 let s:deinVim = s:deinDir . "/dein.vim"
 " プラグインリスト
 let s:pluginList = expand("~/.vim/pluginList.toml")
-
-
-" ### dein関連
 
 " dein.vimがインストールされてなければインストールする
 if &runtimepath !~# "/dein.vim"
