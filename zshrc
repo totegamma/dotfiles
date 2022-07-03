@@ -110,6 +110,7 @@ fi
 zplug load
 
 ## abbr
+abbrev-alias -g C="| <COPYBIN>"
 abbrev-alias -g G="| grep"
 abbrev-alias -g P="| peco"
 abbrev-alias -g H="| head"

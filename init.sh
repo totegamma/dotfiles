@@ -69,6 +69,6 @@ cp -R $SCRIPT_DIR/config/* ~/.config
 # POSTPROCESS
 sed -i -e "s%<POWERLINE.CONF>%$(pip3 show powerline-status | awk '/Location/{print $2}')/powerline/bindings/tmux/powerline.conf%g" ~/.tmux.conf
 sed -i -e "s%<COPYBIN>%$COPYBIN%g" ~/.tmux.conf
-
+sed -i -e "s%<COPYBIN>%$COPYBIN%g" ~/.zshrc
 
 
