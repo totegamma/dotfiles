@@ -4,6 +4,9 @@
 ## sudo の後ろでコマンド名を補完する
 zstyle ':completion:*:sudo:*' command-path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
 
+## 自動補完　補完に失敗した場合履歴を参照する
+ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+
 ## PROMPT
 setopt promptsubst
 function set_prompt {
