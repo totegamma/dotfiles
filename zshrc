@@ -4,8 +4,8 @@
 ## sudo の後ろでコマンド名を補完する
 zstyle ':completion:*:sudo:*' command-path /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin
 
-## 自動補完　補完に失敗した場合履歴を参照する
-ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+## 自動補完　履歴がなかった場合ファイル名で補完する
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 ## PROMPT
 setopt promptsubst
@@ -113,6 +113,9 @@ fi
 zplug load
 
 ## abbr
+abbrev-alias -g t="tmux"
+abbrev-alias -g v="vim"
+
 abbrev-alias -g C="| <COPYBIN>"
 abbrev-alias -g G="| grep"
 abbrev-alias -g P="| peco"
@@ -127,11 +130,10 @@ abbrev-alias -g reload="source ~/.zshrc"
 abbrev-alias -g dc="docker-compose"
 abbrev-alias -g gcm="git commit -m"
 
+abbrev-alias -g da='docker exec -it $(docker ps | peco | awk "{print \$1}") bash'
+abbrev-alias -g ds='docker stop -it $(docker ps | peco | awk "{print \$1}") bash'
 
 # alias & functions
-
-alias da='docker exec -it $(docker ps | peco | awk "{print \$1}") bash'
-alias ds='docker stop -it $(docker ps | peco | awk "{print \$1}") bash'
 
 function startrec() {
 	if [ -v TMUX ]; then
