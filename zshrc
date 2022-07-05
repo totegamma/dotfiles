@@ -114,7 +114,6 @@ abbrev-alias -g J="| jq"
 abbrev-alias -g E="| sed -e 's/\x1b\[[0-9;]*m//g'"
 abbrev-alias -g N="&> /dev/null"
 abbrev-alias -g B="then echo 'y'; else echo 'n'; fi"
-abbrev-alias -g reload="source ~/.zshrc"
 
 abbrev-alias -g dc="docker-compose"
 abbrev-alias -g gcm="git commit -m"
@@ -123,6 +122,10 @@ abbrev-alias -g da='docker exec -it $(docker ps | peco | awk "{print \$1}") bash
 abbrev-alias -g ds='docker stop -it $(docker ps | peco | awk "{print \$1}") bash'
 
 # alias & functions
+
+function reload() {
+	source ~/.zshrc
+}
 
 function startrec() {
 	if [ -v TMUX ]; then
