@@ -81,36 +81,25 @@ function peco-cdr() {
 zle -N peco-cdr
 bindkey '^u' peco-cdr
 
-# initialize zplug
-source ~/.zplug/init.zsh
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+# initialize zi
+source ~/.zi/bin/zi.zsh
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-# 構文のハイライト(https://github.com/zsh-users/zsh-syntax-highlighting)
-zplug "zsh-users/zsh-syntax-highlighting"
+# 構文のハイライト
+zi ice wait'!0'; zi load "zsh-users/zsh-syntax-highlighting"
 # コマンド入力途中で上下キー押したときの過去履歴がいい感じに出るようになる
-zplug "zsh-users/zsh-history-substring-search"
+zi ice wait'!0'; zi load "zsh-users/zsh-history-substring-search"
 # 過去に入力したコマンドの履歴が灰色のサジェストで出る
-zplug "zsh-users/zsh-autosuggestions"
+zi ice wait'!0'; zi load "zsh-users/zsh-autosuggestions"
 # 補完強化
-zplug "zsh-users/zsh-completions"
+zi ice wait'!0'; zi load "zsh-users/zsh-completions"
 # 256色表示にする
-zplug "chrissicool/zsh-256color"
-# コマンドライン上の文字リテラルの絵文字を emoji 化する
-zplug "mrowa44/emojify", as:command
+zi ice wait'!0'; zi load "chrissicool/zsh-256color"
 # lsに色を付ける
-zplug "zpm-zsh/ls"
+zi ice wait'!0'; zi load "zpm-zsh/ls"
 # abbr
-zplug "momo-lab/zsh-abbrev-alias"
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-	printf "Install? [y/N]: "
-	if read -q; then
-		echo; zplug install
-	fi
-fi
-
-zplug load
+zi load "momo-lab/zsh-abbrev-alias"
 
 ## abbr
 abbrev-alias -g t="tmux"

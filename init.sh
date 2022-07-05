@@ -43,9 +43,9 @@ install_command $PLATFORM tmux
 install_command $PLATFORM vim
 install_command $PLATFORM peco
 
-## install zplug
-if [ ! -d ~/.zplug ]; then
-	git clone https://github.com/zplug/zplug ~/.zplug
+## install zi
+if [ ! -d ~/.zi ]; then
+	sh -c "$(curl -fsSL https://git.io/get-zi)" -- -i skip -b main
 fi
 
 ##install powerline-status
