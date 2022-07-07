@@ -123,9 +123,7 @@ abbrev-alias -g ds='docker stop -it $(docker ps | peco | awk "{print \$1}") bash
 
 # alias & functions
 
-function reload() {
-	source ~/.zshrc
-}
+alias reload="source ~/.zshrc"
 
 function startrec() {
 	if [ -v TMUX ]; then

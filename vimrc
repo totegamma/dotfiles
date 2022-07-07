@@ -1,5 +1,4 @@
 
-
 " dein.vimが置かれる場所
 let s:deinDir = expand("~/.vim/dein")
 " dein.vim本体
@@ -14,11 +13,9 @@ if &runtimepath !~# "/dein.vim"
 		"dein.vimのインストール
 		silent "!git clone https://github.com/Shougo/dein.vim" s:deinVim
 
-		"molokai.vimのインストール
-		silent "!mkdir ~/.vim/colors"
-		silent "!git clone https://github.com/tomasr/molokai ~/.vim/tmp"
-		silent "!mv ~/.vim/tmp/colors/molokai.vim ~/.vim/colors"
-		silent "!rm -rf ~/.vim/tmp"
+		"iceberg.vimのインストール
+		silent "!mkdir -p ~/.vim/colors"
+		silent "!curl https://raw.githubusercontent.com/cocopon/iceberg.vim/master/colors/iceberg.vim > ~/.vim/colors/iceberg.vim"
 
 	endif
 	execute "set runtimepath^=" . fnamemodify(s:deinVim, ":p")
@@ -51,7 +48,7 @@ set laststatus=2
 filetype plugin indent on
 " カラースキマの設定
 set background=dark
-colorscheme molokai
+colorscheme iceberg
 
 " シンタックスハイライト
 syntax on
@@ -73,7 +70,7 @@ set backspace=indent,eol,start
 set vb t_vb=
 set novisualbell
 " OSのクリップボードを使う
-set clipboard=unnamedplus
+set clipboard^=unnamed,unnamedplus
 " 不可視文字を表示
 set list
 " 行番号を表示
@@ -171,8 +168,6 @@ vnoremap v $h
 " TABにて対応ペアにジャンプ
 nnoremap &lt;Tab&gt; %
 vnoremap &lt;Tab&gt; %
-" Ctrl + e でNerdTreeのon/off切り替え
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 " Ctrl + hjkl でウィンドウ間を移動
 nnoremap <C-h> <C-w>h
@@ -184,6 +179,4 @@ nnoremap <S-Left>  <C-w><<CR>
 nnoremap <S-Right> <C-w><CR>
 nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
-
-nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#seep_sessions() : "\<C-c>"
 
