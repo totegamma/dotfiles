@@ -6,7 +6,7 @@ CURRENTDIR=$3
 
 if [[ $PROG = "ssh" ]]; then
 
-	COMMAND=$(pgrep -aP $PID | awk '{print substr($0, length($1)+2)}')
+	COMMAND=$(pgrep -aflP $PID | awk '{print substr($0, length($1)+2)}')
 
 	python3 - $COMMAND << EOF
 import argparse
@@ -25,7 +25,7 @@ fi
 
 if [[ $PROG = "docker" ]]; then
 
-	COMMAND=$(pgrep -aP $PID | awk '{print substr($0, length($1)+2)}')
+	COMMAND=$(pgrep -aflP $PID | awk '{print substr($0, length($1)+2)}')
 
 	ARGS=(`echo $COMMAND`)
 	positional_args=()
@@ -37,7 +37,7 @@ if [[ $PROG = "docker" ]]; then
 	done
 
 	if [[ $positional_args[2] = "exec" ]]; then
-		echo " #[fg=brightwhite]$(docker ps | awk "/$positional_args[3]/{print \$NF\" [\"\$1\"]\"}") #[fg=colour240,bg=default]"
+		echo " #[fg=white]$(docker ps | awk "/$positional_args[3]/{print \$NF\"  \"\$1}") #[fg=colour240,bg=default]"
 		exit
 	fi
 fi
