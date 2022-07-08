@@ -1,44 +1,4 @@
 
-" dein.vimが置かれる場所
-let s:deinDir = expand("~/.vim/dein")
-" dein.vim本体
-let s:deinVim = s:deinDir . "/dein.vim"
-" プラグインリスト
-let s:pluginList = expand("~/.vim/pluginList.toml")
-
-" dein.vimがインストールされてなければインストールする
-if &runtimepath !~# "/dein.vim"
-	if !isdirectory(s:deinVim)
-
-		"dein.vimのインストール
-		silent "!git clone https://github.com/Shougo/dein.vim" s:deinVim
-
-		"iceberg.vimのインストール
-		silent "!mkdir -p ~/.vim/colors"
-		silent "!curl https://raw.githubusercontent.com/cocopon/iceberg.vim/master/colors/iceberg.vim > ~/.vim/colors/iceberg.vim"
-
-	endif
-	execute "set runtimepath^=" . fnamemodify(s:deinVim, ":p")
-endif
-
-" dein.vimの設定をする
-if dein#load_state(s:deinDir)
-	call dein#begin(s:deinDir)
-
-	" TOMLを読み込み、キャッシュしておく
-	call dein#load_toml(s:pluginList, {"lazy": 0})
-
-	"設定終了
-	call dein#end()
-	call dein#save_state()
-endif
-
-"未インストールのプラグインがあればインストールする
-if dein#check_install()
-	call dein#install()
-endif
-
-
 " ### vim基本設定
 " 256色モードを使用する
 set t_Co=256
@@ -48,7 +8,7 @@ set laststatus=2
 filetype plugin indent on
 " カラースキマの設定
 set background=dark
-colorscheme iceberg
+colorscheme nord
 
 " シンタックスハイライト
 syntax on

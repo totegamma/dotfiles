@@ -57,6 +57,13 @@ if ! $(pip3 show powerline-gitstatus &> /dev/null); then
 	pip3 install powerline-gitstatus
 fi
 
+## install nord
+if [ ! -e ~/.vim/colors/nord.vim ]; then
+	mkdir -p ~/.vim/colors
+	https://raw.githubusercontent.com/arcticicestudio/nord-vim/main/colors/nord.vim > ~/.vim/colors/nord.vim
+fi
+
+
 # COPY
 cp $SCRIPT_DIR/zshrc ~/.zshrc
 cp $SCRIPT_DIR/vimrc ~/.vimrc
@@ -67,7 +74,6 @@ cp -R $SCRIPT_DIR/tmux/* ~/.tmux
 cp -R $SCRIPT_DIR/config/* ~/.config
 
 # POSTPROCESS
-sed -i -e "s%<POWERLINE.CONF>%$(pip3 show powerline-status | awk '/Location/{print $2}')/powerline/bindings/tmux/powerline.conf%g" ~/.tmux.conf
 sed -i -e "s%<COPYBIN>%$COPYBIN%g" ~/.tmux.conf
 sed -i -e "s%<COPYBIN>%$COPYBIN%g" ~/.zshrc
 
