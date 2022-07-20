@@ -63,7 +63,7 @@ fi
 ## install nord
 if [ ! -e ~/.vim/colors/nord.vim ]; then
 	mkdir -p ~/.vim/colors
-	https://raw.githubusercontent.com/arcticicestudio/nord-vim/main/colors/nord.vim > ~/.vim/colors/nord.vim
+	curl https://raw.githubusercontent.com/arcticicestudio/nord-vim/main/colors/nord.vim > ~/.vim/colors/nord.vim
 fi
 
 
