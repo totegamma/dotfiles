@@ -51,6 +51,9 @@ zstyle ':chpwd:*' recent-dirs-default true
 zstyle ':chpwd:*' recent-dirs-file "$HOME/.cache/shell/chpwd-recent-dirs"
 zstyle ':chpwd:*' recent-dirs-pushd true
 
+## git
+export GIT_EDITOR='nvim'
+
 # peco
 ## 過去に実行したコマンドを選択。ctrl-rにバインド
 function peco-select-history() {
