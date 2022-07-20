@@ -6,13 +6,16 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 if [[ "$(uname -r)" == *microsoft* ]]; then # Is this WSL?
 	PLATFORM='WSL'
 	COPYBIN='clip.exe'
+	PASTEBIN='powershell.exe -command Get-Clipboard'
 else
 	if [ "$OSTYPE" = linux-gnu ]; then  # Is this linux?
 		PLATFORM='LINUX'
 		COPYBIN='xsel -bi'
+		PASTEBIN='xsel -b0'
 	else # This is MacOS
 		PLATFORM='MAC'
 		COPYBIN='pbcopy'
+		PASTEBIN='pbpaste'
 	fi
 fi
 
@@ -76,5 +79,6 @@ cp -R $SCRIPT_DIR/config/* ~/.config
 # POSTPROCESS
 sed -i -e "s%<COPYBIN>%$COPYBIN%g" ~/.tmux.conf
 sed -i -e "s%<COPYBIN>%$COPYBIN%g" ~/.zshrc
-
+sed -i -e "s%<COPYBIN>%$COPYBIN%g" ~/.config/nvim/init.vim
+sed -i -e "s%<PASTEBIN>%$PASTEBIN%g" ~/.config/nvim/init.vim
 

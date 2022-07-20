@@ -87,17 +87,17 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # 構文のハイライト
-zi ice wait'!0'; zi load "zsh-users/zsh-syntax-highlighting"
+zi load "zsh-users/zsh-syntax-highlighting"
 # コマンド入力途中で上下キー押したときの過去履歴がいい感じに出るようになる
-zi ice wait'!0'; zi load "zsh-users/zsh-history-substring-search"
+zi load "zsh-users/zsh-history-substring-search"
 # 過去に入力したコマンドの履歴が灰色のサジェストで出る
-zi ice wait'!0'; zi load "zsh-users/zsh-autosuggestions"
+zi load "zsh-users/zsh-autosuggestions"
 # 補完強化
-zi ice wait'!0'; zi load "zsh-users/zsh-completions"
+zi load "zsh-users/zsh-completions"
 # 256色表示にする
-zi ice wait'!0'; zi load "chrissicool/zsh-256color"
+zi load "chrissicool/zsh-256color"
 # lsに色を付ける
-zi ice wait'!0'; zi load "zpm-zsh/ls"
+zi load "zpm-zsh/ls"
 # abbr
 zi load "momo-lab/zsh-abbrev-alias"
 
@@ -119,10 +119,11 @@ abbrev-alias -g dc="docker-compose"
 abbrev-alias -g gcm="git commit -m"
 
 abbrev-alias -g da='docker exec -it $(docker ps | peco | awk "{print \$1}") bash'
-abbrev-alias -g ds='docker stop -it $(docker ps | peco | awk "{print \$1}") bash'
+abbrev-alias -g ds='docker stop $(docker ps | peco | awk "{print \$1}")'
 
 # alias & functions
 
+alias vim="nvim"
 alias reload="source ~/.zshrc"
 
 function startrec() {
