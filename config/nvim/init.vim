@@ -1,6 +1,7 @@
 
 call plug#begin('~/.local/share/nvim/plugged')
-	Plug 'christoomey/vim-system-copy'
+    Plug 'christoomey/vim-system-copy'
+    Yggdroot/indentLine
 call plug#end()
 
 let g:system_copy#copy_command='<COPYBIN>'
