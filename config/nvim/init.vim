@@ -1,7 +1,8 @@
 
 call plug#begin('~/.local/share/nvim/plugged')
     Plug 'christoomey/vim-system-copy'
-    Yggdroot/indentLine
+    Plug 'Yggdroot/indentLine'
+    Plug 'jvirtanen/vim-hcl'
 call plug#end()
 
 let g:system_copy#copy_command='<COPYBIN>'
@@ -21,7 +22,6 @@ set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:% " 不可視文字を
 
 set background=dark
 colorscheme nord
-
 
 " W でスーパーユーザーとして保存（sudoが使える環境限定）
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
@@ -46,5 +46,5 @@ nnoremap <S-Right> <C-w><CR>
 nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
 
-
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
