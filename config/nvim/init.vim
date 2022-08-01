@@ -3,6 +3,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'christoomey/vim-system-copy'
     Plug 'Yggdroot/indentLine'
     Plug 'jvirtanen/vim-hcl'
+    Plug 'neoclide/jsonc.vim'
+    Plug 'bfrg/vim-cpp-modern'
 call plug#end()
 
 let g:system_copy#copy_command='<COPYBIN>'
@@ -13,15 +15,25 @@ set autoindent         " 改行時に自動でインデントする
 set tabstop=4          " タブを何文字の空白に変換するか
 set shiftwidth=4       " 自動インデント時に入力する空白の数
 set expandtab          " タブ入力を空白に変換
+set scrolloff=5         " スクロールする時に下が見えるようにする
+set noswapfile          " .swapファイルを作らない
+set nowritebackup       " バックアップファイルを作らない
+set nobackup            " バックアップをしない
+set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
+set shiftround          " インデントをshiftwidthの倍数に丸める
+set infercase           " 補完の際の大文字小文字の区別しない
+set hidden              " 変更中のファイルでも、保存しないで他のファイルを表示
+set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
+set ignorecase          " 小文字の検索でも大文字も見つかるようにする
+set smartcase           " ただし大文字も含めた検索の場合はその通りに検索する
 
-" カーソルのある行をハイライトする
-set cursorline
-
-set list " 不可視文字を表示
+set cursorline          " カーソルのある行をハイライトする
+set list                " 不可視文字を表示
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:% " 不可視文字を表示
 
+set termguicolors
 set background=dark
-colorscheme nord
+colorscheme iceberg
 
 " W でスーパーユーザーとして保存（sudoが使える環境限定）
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
@@ -47,4 +59,10 @@ nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
 
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" indentLine settings
+let g:vim_json_conceal=0
+let g:markdown_syntax_conceal=0
+let g:indentLine_conceallevel=1
+let g:indentLine_char='▏'
 
