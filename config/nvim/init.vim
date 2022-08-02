@@ -7,6 +7,10 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'bfrg/vim-cpp-modern'
     Plug 'itchyny/lightline.vim'
     Plug 'cocopon/iceberg.vim'
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'mattn/vim-lsp-settings'
 call plug#end()
 
 let g:system_copy#copy_command='<COPYBIN>'
