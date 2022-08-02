@@ -1,16 +1,21 @@
 
 call plug#begin('~/.local/share/nvim/plugged')
+    " Utils
+    Plug 'chrisbra/Colorizer'
     Plug 'christoomey/vim-system-copy'
+    " Visualize
+    Plug 'cocopon/iceberg.vim'
     Plug 'Yggdroot/indentLine'
+    Plug 'itchyny/lightline.vim'
+    " LanguageServer
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    " LanguageSpecific
     Plug 'jvirtanen/vim-hcl'
     Plug 'neoclide/jsonc.vim'
     Plug 'bfrg/vim-cpp-modern'
-    Plug 'itchyny/lightline.vim'
-    Plug 'cocopon/iceberg.vim'
-    Plug 'prabirshrestha/vim-lsp'
-    Plug 'prabirshrestha/asyncomplete.vim'
-    Plug 'prabirshrestha/asyncomplete-lsp.vim'
-    Plug 'mattn/vim-lsp-settings'
 call plug#end()
 
 let g:system_copy#copy_command='<COPYBIN>'
@@ -79,4 +84,11 @@ let g:lightline = {
 \           'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
 \       }
 \   }
+
+
+let g:lsp_diagnostics_signs_enabled     = 1
+let g:lsp_diagnostics_signs_error       = {'text': ''}
+let g:lsp_diagnostics_signs_warning     = {'text': ''}
+let g:lsp_diagnostics_signs_information = {'text': ''}
+let g:lsp_diagnostics_signs_hint        = {'text': 'ﳁ'}
 

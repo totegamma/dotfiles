@@ -69,7 +69,6 @@ fi
 
 # COPY
 cp $SCRIPT_DIR/zshrc ~/.zshrc
-cp $SCRIPT_DIR/vimrc ~/.vimrc
 cp $SCRIPT_DIR/tmux.conf ~/.tmux.conf
 mkdir -p ~/.tmux
 mkdir -p ~/.config
