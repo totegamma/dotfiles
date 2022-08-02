@@ -1,6 +1,9 @@
 {
-	"Style": {
-		"Selected": ["underline", "on_blue", "white"],
-		"Matched": ["cyan", "on_black"]
-	}
+    "Use256Color": true,
+    "Style": {
+        "Basic": ["on_default", "default"],
+        "Selected": ["black", "on_white"],
+        "Matched": ["black", "on_blue"]
+    }
 }
+
