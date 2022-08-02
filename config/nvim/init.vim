@@ -5,6 +5,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'jvirtanen/vim-hcl'
     Plug 'neoclide/jsonc.vim'
     Plug 'bfrg/vim-cpp-modern'
+    Plug 'itchyny/lightline.vim'
+    Plug 'cocopon/iceberg.vim'
 call plug#end()
 
 let g:system_copy#copy_command='<COPYBIN>'
@@ -65,4 +67,9 @@ let g:vim_json_conceal=0
 let g:markdown_syntax_conceal=0
 let g:indentLine_conceallevel=1
 let g:indentLine_char='▏'
+
+let g:lightline = {
+\   'colorscheme': 'iceberg',
+\   }
+
 
