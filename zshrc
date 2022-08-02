@@ -11,9 +11,9 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 setopt promptsubst
 function set_prompt {
 	if $(tmux has-session &> /dev/null); then
-		PROMPT="%F{$(tmux display -p '#{?pane_pipe,yellow,cyan}')}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
+		PROMPT="%F{$(tmux display -p '#{?pane_pipe,yellow,blue}')}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
 	else
-		PROMPT="%F{cyan}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
+		PROMPT="%F{blue}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
 	fi
 }
 set_prompt
@@ -107,6 +107,7 @@ zi load "momo-lab/zsh-abbrev-alias"
 ## abbr
 abbrev-alias -g t="tmux"
 abbrev-alias -g v="vim"
+abbrev-alias -g c="clear"
 
 abbrev-alias -g C="| <COPYBIN>"
 abbrev-alias -g G="| grep"

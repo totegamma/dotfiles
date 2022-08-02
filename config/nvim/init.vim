@@ -5,6 +5,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'jvirtanen/vim-hcl'
     Plug 'neoclide/jsonc.vim'
     Plug 'bfrg/vim-cpp-modern'
+    Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 let g:system_copy#copy_command='<COPYBIN>'
