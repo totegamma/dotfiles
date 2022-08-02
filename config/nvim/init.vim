@@ -29,6 +29,7 @@ set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバ
 set ignorecase          " 小文字の検索でも大文字も見つかるようにする
 set smartcase           " ただし大文字も含めた検索の場合はその通りに検索する
 
+set clipboard+=unnamedplus
 set cursorline          " カーソルのある行をハイライトする
 set list                " 不可視文字を表示
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:% " 不可視文字を表示
@@ -70,6 +71,8 @@ let g:indentLine_char='▏'
 
 let g:lightline = {
 \   'colorscheme': 'iceberg',
+\       'active': {
+\           'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
+\       }
 \   }
-
 
