@@ -13,10 +13,11 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'itchyny/lightline.vim'
     Plug 'lukas-reineke/indent-blankline.nvim'
     " LanguageServer
-    Plug 'prabirshrestha/vim-lsp'
-    Plug 'mattn/vim-lsp-settings'
-    Plug 'prabirshrestha/asyncomplete.vim'
-    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'neovim/nvim-lspconfig'
     " LanguageSpecific
     Plug 'jvirtanen/vim-hcl'
     Plug 'neoclide/jsonc.vim'
@@ -86,12 +87,6 @@ let g:lightline = {
 \       }
 \   }
 
-let g:lsp_diagnostics_signs_enabled     = 1
-let g:lsp_diagnostics_signs_error       = {'text': ''}
-let g:lsp_diagnostics_signs_warning     = {'text': ''}
-let g:lsp_diagnostics_signs_information = {'text': ''}
-let g:lsp_diagnostics_signs_hint        = {'text': 'ﳁ'}
-
 lua << EOF
 require("indent_blankline").setup {
     char = '▏',
@@ -99,5 +94,47 @@ require("indent_blankline").setup {
 }
 
 require("icon-picker").setup({ disable_legacy_commands = true })
+
+local signs = { Error = "", Warn = "", Hint = "ﳁ", Info = "" }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
+require("mason").setup()
+require('mason-lspconfig').setup_handlers({ function(server)
+    local opt = {
+        capabilities = require('cmp_nvim_lsp').update_capabilities(
+            vim.lsp.protocol.make_client_capabilities()
+        ),
+        on_attach = function(client, bfnr)
+            vim.opt.signcolumn = "yes"
+        end
+    }
+    require('lspconfig')[server].setup(opt)
+end })
+
+local cmp = require("cmp")
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+    sources = {
+        { name = "nvim_lsp" },
+    },
+    mapping = cmp.mapping.preset.insert({
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
+        ['<C-l>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ["<CR>"] = cmp.mapping.confirm { select = true },
+    }),
+    experimental = {
+        ghost_text = true,
+    },
+})
+
 EOF
 
