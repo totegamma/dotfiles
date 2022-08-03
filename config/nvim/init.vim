@@ -75,6 +75,7 @@ nnoremap <S-Right> <C-w><CR>
 nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
 
+au FileType * set fo-=c fo-=r fo-=o
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " indentLine settings
