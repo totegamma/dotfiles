@@ -3,6 +3,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     " Utils
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'christoomey/vim-system-copy'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
     Plug 'stevearc/dressing.nvim'
     Plug 'ziontee113/icon-picker.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
