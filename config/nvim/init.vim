@@ -1,12 +1,15 @@
 
 call plug#begin('~/.local/share/nvim/plugged')
     " Utils
-    Plug 'chrisbra/Colorizer'
+    Plug 'norcalli/nvim-colorizer.lua'
     Plug 'christoomey/vim-system-copy'
+    Plug 'stevearc/dressing.nvim'
+    Plug 'ziontee113/icon-picker.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " Visualize
     Plug 'cocopon/iceberg.vim'
-    Plug 'Yggdroot/indentLine'
     Plug 'itchyny/lightline.vim'
+    Plug 'lukas-reineke/indent-blankline.nvim'
     " LanguageServer
     Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
@@ -73,11 +76,6 @@ nnoremap <S-Down>  <C-w>+<CR>
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " indentLine settings
-let g:vim_json_conceal=0
-let g:markdown_syntax_conceal=0
-let g:indentLine_conceallevel=1
-let g:indentLine_char='▏'
-
 let g:lightline = {
 \   'colorscheme': 'iceberg',
 \       'active': {
@@ -85,10 +83,18 @@ let g:lightline = {
 \       }
 \   }
 
-
 let g:lsp_diagnostics_signs_enabled     = 1
 let g:lsp_diagnostics_signs_error       = {'text': ''}
 let g:lsp_diagnostics_signs_warning     = {'text': ''}
 let g:lsp_diagnostics_signs_information = {'text': ''}
 let g:lsp_diagnostics_signs_hint        = {'text': 'ﳁ'}
+
+lua << EOF
+require("indent_blankline").setup {
+    char = '▏',
+    show_current_context = true,
+}
+
+require("icon-picker").setup({ disable_legacy_commands = true })
+EOF
 
