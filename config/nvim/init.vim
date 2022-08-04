@@ -17,6 +17,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/vim-vsnip'
     Plug 'neovim/nvim-lspconfig'
     " LanguageSpecific
     Plug 'jvirtanen/vim-hcl'
@@ -76,6 +77,8 @@ nnoremap <S-Right> <C-w><CR>
 nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
 
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+
 au FileType * set fo-=c fo-=r fo-=o
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
@@ -92,6 +95,12 @@ require("indent_blankline").setup {
     char = '▏',
     show_current_context = true,
 }
+
+require('telescope').setup({
+    defaults = {
+        file_ignore_patterns = {"node_modules"}
+    }
+})
 
 require("icon-picker").setup({ disable_legacy_commands = true })
 
