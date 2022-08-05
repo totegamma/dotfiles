@@ -4,36 +4,36 @@
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
 if [[ "$(uname -r)" == *microsoft* ]]; then # Is this WSL?
-	PLATFORM='WSL'
-	COPYBIN='clip.exe'
-	PASTEBIN='powershell.exe -command Get-Clipboard'
+    PLATFORM='WSL'
+    COPYBIN='clip.exe'
+    PASTEBIN='powershell.exe -command Get-Clipboard'
 else
-	if [ "$OSTYPE" = linux-gnu ]; then  # Is this linux?
-		PLATFORM='LINUX'
-		COPYBIN='xsel -bi'
-		PASTEBIN='xsel -b0'
-	else # This is MacOS
-		PLATFORM='MAC'
-		COPYBIN='pbcopy'
-		PASTEBIN='pbpaste'
-	fi
+    if [ "$OSTYPE" = linux-gnu ]; then  # Is this linux?
+        PLATFORM='LINUX'
+        COPYBIN='xsel -bi'
+        PASTEBIN='xsel -b0'
+    else # This is MacOS
+        PLATFORM='MAC'
+        COPYBIN='pbcopy'
+        PASTEBIN='pbpaste'
+    fi
 fi
 
 function install_command() {
-	if [ $# = 2 ]; then CMD=$2; fi
-	if [ $# = 3 ]; then CMD=$3; fi
-	if ! command -v $CMD &> /dev/null ; then
-		echo "install "$CMD
-		if [ "$1" = 'MAC' ]; then
-			brew install -y $2
-		else
-			apt install -y $2
-		fi
-		if [ $? != 0 ]; then
-			echo "install failed. abort."
-			exit
-		fi
-	fi
+    if [ $# = 2 ]; then CMD=$2; fi
+    if [ $# = 3 ]; then CMD=$3; fi
+    if ! command -v $CMD &> /dev/null ; then
+        echo "install "$CMD
+        if [ "$1" = 'MAC' ]; then
+            brew install -y $2
+        else
+            apt install -y $2
+        fi
+        if [ $? != 0 ]; then
+            echo "install failed. abort."
+            exit
+        fi
+    fi
 }
 
 
