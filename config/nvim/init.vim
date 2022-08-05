@@ -15,7 +15,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'kristijanhusak/defx-icons'
-    Plug 'ryanoasis/vim-devicons'
+    Plug 'kyazdani42/nvim-web-devicons'
     Plug 'kristijanhusak/defx-git'
     " LanguageServer
     Plug 'williamboman/mason.nvim'
