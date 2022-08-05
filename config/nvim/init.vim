@@ -7,10 +7,11 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'stevearc/dressing.nvim'
     Plug 'ziontee113/icon-picker.nvim'
+    Plug 'lewis6991/gitsigns.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     " Visualize
     Plug 'cocopon/iceberg.vim'
-    Plug 'itchyny/lightline.vim'
+    Plug 'feline-nvim/feline.nvim'
     Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'kristijanhusak/defx-icons'
@@ -96,6 +97,9 @@ let g:lightline = {
 \   }
 
 lua << EOF
+require('gitsigns').setup()
+require('feline_config')
+
 require("indent_blankline").setup {
     char = '▏',
     show_current_context = true,
