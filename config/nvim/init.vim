@@ -97,7 +97,11 @@ let g:lightline = {
 \   }
 
 lua << EOF
-require('gitsigns').setup()
+require('gitsigns').setup({
+    on_attach = function(buffer)
+        vim.opt.signcolumn = "yes"
+    end
+})
 require('feline_config')
 
 require("indent_blankline").setup {

@@ -153,54 +153,6 @@ components.active[1][4] = {
         }
     }
 }
--- diffAdd
-components.active[1][5] = {
-    provider = 'git_diff_added',
-    hl = {
-        fg = colors.green,
-        bg = colors.bg3,
-        style = 'bold'
-    },
-    left_sep = {
-        str = ' ',
-        hl = {
-            fg = colors.fg3,
-            bg = colors.bg3,
-        }
-    }
-}
--- diffModfified
-components.active[1][6] = {
-    provider = 'git_diff_changed',
-    hl = {
-        fg = colors.yellow,
-        bg = colors.bg3,
-        style = 'bold'
-    },
-    left_sep = {
-        str = ' ',
-        hl = {
-            fg = colors.fg3,
-            bg = colors.bg3,
-        }
-    }
-}
--- diffRemove
-components.active[1][7] = {
-    provider = 'git_diff_removed',
-    hl = {
-        fg = colors.red,
-        bg = colors.bg3,
-        style = 'bold'
-    },
-    left_sep = {
-        str = ' ',
-        hl = {
-            fg = colors.fg3,
-            bg = colors.bg3,
-        }
-    }
-}
 
 -- RIGHT
 components.active[3][1] = {
