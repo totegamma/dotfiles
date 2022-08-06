@@ -100,15 +100,11 @@ components.active[1][2] = {
         end
         return ' ' .. icon .. ' '
     end,
-    hl = function()
-        local val = {}
-        local filename = vim.fn.expand('%:t')
-        local extension = vim.fn.expand('%:e')
-        local icon, name  = require'nvim-web-devicons'.get_icon(filename, extension)
-        val.fg = colors.fg2
-        val.bg = colors.bg2
-        return val
-    end,
+    hl = {
+        fg = colors.fg2,
+        bg = colors.bg2,
+        style = 'bold'
+    },
 }
 
 -- filename
@@ -306,6 +302,91 @@ components.active[3][9] = {
         hl = {
             fg = colors.fg1,
             bg = colors.bg1,
+        }
+    }
+}
+
+------------------------------------
+
+-- fileIcon
+components.inactive[1][1] = {
+    provider = function()
+        local filename = vim.fn.expand('%:t')
+        local extension = vim.fn.expand('%:e')
+        local icon  = require'nvim-web-devicons'.get_icon(filename, extension)
+        if icon == nil then
+            icon = ''
+        end
+        return ' ' .. icon .. ' '
+    end,
+    hl = {
+        fg = colors.fg3,
+        bg = colors.bg3,
+    },
+}
+
+-- filename
+components.inactive[1][2] = {
+    provider = function()
+        return vim.fn.expand("%:F")
+    end,
+    hl = {
+        fg = colors.fg3,
+        bg = colors.bg3,
+    },
+    right_sep = {
+        str = ' ',
+        hl = {
+            fg = colors.fg3,
+            bg = colors.bg3,
+        }
+    }
+}
+
+-- fileFormat
+components.inactive[3][1] = {
+    provider = function() return '' .. vim.bo.fileformat:upper() .. '' end,
+    hl = {
+        fg = colors.fg3,
+        bg = colors.bg3,
+        style = 'bold'
+    },
+    left_sep = {
+        str = ' ',
+        hl = {
+            fg = colors.fg3,
+            bg = colors.bg3,
+        }
+    },
+    right_sep = {
+        str = ' ',
+        hl = {
+            fg = colors.fg3,
+            bg = colors.bg3,
+        }
+    }
+
+}
+-- fileEncode
+components.inactive[3][2] = {
+    provider = 'file_encoding',
+    hl = {
+        fg = colors.fg3,
+        bg = colors.bg3,
+        style = 'bold'
+    },
+    left_sep = {
+        str = ' ',
+        hl = {
+            fg = colors.fg3,
+            bg = colors.bg3,
+        }
+    },
+    right_sep = {
+        str = ' ',
+        hl = {
+            fg = colors.fg3,
+            bg = colors.bg3,
         }
     }
 }
