@@ -38,20 +38,21 @@ set autoindent         " 改行時に自動でインデントする
 set tabstop=4          " タブを何文字の空白に変換するか
 set shiftwidth=4       " 自動インデント時に入力する空白の数
 set expandtab          " タブ入力を空白に変換
-set scrolloff=5         " スクロールする時に下が見えるようにする
-set noswapfile          " .swapファイルを作らない
-set nowritebackup       " バックアップファイルを作らない
-set nobackup            " バックアップをしない
-set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
-set shiftround          " インデントをshiftwidthの倍数に丸める
-set infercase           " 補完の際の大文字小文字の区別しない
-set hidden              " 変更中のファイルでも、保存しないで他のファイルを表示
-set switchbuf=useopen   " 新しく開く代わりにすでに開いてあるバッファを開く
-set ignorecase          " 小文字の検索でも大文字も見つかるようにする
-set smartcase           " ただし大文字も含めた検索の場合はその通りに検索する
-set mouse=a
+set scrolloff=5        " スクロールする時に下が見えるようにする
+set noswapfile         " .swapファイルを作らない
+set nowritebackup      " バックアップファイルを作らない
+set nobackup           " バックアップをしない
+set switchbuf=useopen  " 新しく開く代わりにすでに開いてあるバッファを開く
+set shiftround         " インデントをshiftwidthの倍数に丸める
+set infercase          " 補完の際の大文字小文字の区別しない
+set hidden             " 変更中のファイルでも、保存しないで他のファイルを表示
+set switchbuf=useopen  " 新しく開く代わりにすでに開いてあるバッファを開く
+set ignorecase         " 小文字の検索でも大文字も見つかるようにする
+set smartcase          " ただし大文字も含めた検索の場合はその通りに検索する
+set mouse=a            " マウス有効化
+set noshowmode         " モード表示を消す
 
-set clipboard+=unnamedplus
+set clipboard^=unnamed,unnamedplus
 set cursorline          " カーソルのある行をハイライトする
 set list                " 不可視文字を表示
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:% " 不可視文字を表示
