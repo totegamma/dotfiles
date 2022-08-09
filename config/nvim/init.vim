@@ -84,7 +84,8 @@ nnoremap <S-Right> <C-w><CR>
 nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
 
-nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <C-k> <cmd>Telescope find_files<cr>
+nnoremap <C-b> <cmd>Defx<cr>
 
 au FileType * set fo-=c fo-=r fo-=o
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
@@ -112,8 +113,13 @@ require("indent_blankline").setup {
 
 require('telescope').setup({
     defaults = {
-        file_ignore_patterns = {"node_modules"}
-    }
+        file_ignore_patterns = {"node_modules"},
+        mappings = {
+            i = {
+                ["<esc>"] = "close",
+            },
+        },
+    },
 })
 
 require("icon-picker").setup({ disable_legacy_commands = true })
@@ -188,7 +194,6 @@ function! s:defx_my_settings() abort
   \ defx#do_action('quit')
 endfunction
 
-nnoremap <silent> <Leader>f :<C-u> Defx <CR>
 
 call defx#custom#option('_', {
 \   'winwidth': 40,
