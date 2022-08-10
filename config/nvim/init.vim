@@ -1,6 +1,7 @@
 
 call plug#begin('~/.local/share/nvim/plugged')
     " Utils
+    Plug 'NFrid/due.nvim'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'christoomey/vim-system-copy'
     Plug 'nvim-lua/plenary.nvim'
@@ -105,6 +106,8 @@ require('gitsigns').setup({
     end
 })
 require('feline_config')
+
+require('due_nvim').setup {}
 
 require("indent_blankline").setup {
     char = '▏',
