@@ -18,6 +18,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'kristijanhusak/defx-icons'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'kristijanhusak/defx-git'
+    Plug 'simrat39/symbols-outline.nvim'
     " LanguageServer
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
@@ -197,7 +198,6 @@ function! s:defx_my_settings() abort
   \ defx#do_action('quit')
 endfunction
 
-
 call defx#custom#option('_', {
 \   'winwidth': 40,
 \   'split': 'vertical',
@@ -224,4 +224,7 @@ call defx#custom#column('git', 'column_length', 2)
 
 autocmd BufWritePost * call defx#redraw()
 autocmd BufEnter * call defx#redraw()
+
+" for symbols-outline.nvim
+hi FocusedSymbol ctermbg=237 ctermfg=255 guibg=#3e445e guifg=#ffffff
 
