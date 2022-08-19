@@ -10,6 +10,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'ziontee113/icon-picker.nvim'
     Plug 'lewis6991/gitsigns.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'christoomey/vim-tmux-navigator'
     " Visualize
     Plug 'cocopon/iceberg.vim'
     Plug 'feline-nvim/feline.nvim'
@@ -75,16 +76,22 @@ nnoremap k gk
 " vを二回で行末まで選択
 vnoremap v $h
 
-" Ctrl + hjkl でウィンドウ間を移動
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" Alt + hjkl でウィンドウ間を移動
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <M-k> :TmuxNavigateUp<cr><M-l>
+nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
+
 " Shift + 矢印でウィンドウサイズを変更
 nnoremap <S-Left>  <C-w><<CR>
-nnoremap <S-Right> <C-w><CR>
+nnoremap <S-Right> <C-w>><CR>
 nnoremap <S-Up>    <C-w>-<CR>
 nnoremap <S-Down>  <C-w>+<CR>
+
+" split
+nnoremap <leader>j :split<cr>
+nnoremap <leader>l :vsplit<cr>
 
 nnoremap <C-k> <cmd>Telescope find_files<cr>
 nnoremap <C-b> <cmd>Defx<cr>
@@ -168,6 +175,37 @@ cmp.setup({
         ghost_text = true,
     },
 })
+
+vim.g.symbols_outline = {
+    symbols = {
+        File          = {icon = "", hl = "TSURI"},
+        Package       = {icon = "", hl = "TSNamespace"},
+        Module        = {icon = "", hl = "TSNamespace"},
+        Namespace     = {icon = "", hl = "TSNamespace"},
+        Interface     = {icon = "", hl = "TSType"},
+        TypeParameter = {icon = "", hl = "TSParameter"},
+        Class         = {icon = "", hl = "TSType"},
+        Constructor   = {icon = "ƒ", hl = "TSConstructor"},
+        Method        = {icon = "ƒ", hl = "TSMethod"},
+        Function      = {icon = "ƒ", hl = "TSFunction"},
+        Property      = {icon = "", hl = "TSMethod"},
+        Field         = {icon = "", hl = "TSField"},
+        Variable      = {icon = "", hl = "TSConstant"},
+        Constant      = {icon = "", hl = "TSConstant"},
+        String        = {icon = "", hl = "TSString"},
+        Number        = {icon = "藍", hl = "TSNumber"},
+        Boolean       = {icon = "ﲉ", hl = "TSBoolean"},
+        Enum          = {icon = "", hl = "TSType"},
+        Struct        = {icon = "", hl = "TSType"},
+        Array         = {icon = "", hl = "TSConstant"},
+        Object        = {icon = "", hl = "TSType"},
+        Key           = {icon = "", hl = "TSType"},
+        Null          = {icon = "ﳠ", hl = "TSType"},
+        EnumMember    = {icon = "", hl = "TSField"},
+        Event         = {icon = "", hl = "TSType"},
+        Operator      = {icon = "ﬦ", hl = "TSOperator"},
+    }
+}
 
 EOF
 
