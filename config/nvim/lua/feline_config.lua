@@ -160,6 +160,13 @@ components.active[3][1] = {
         fg = colors.red,
         bg = colors.bg3,
         style = 'bold'
+    },
+    right_sep = {
+        str = ' ',
+        hl = {
+            fg = colors.fg3,
+            bg = colors.bg3,
+        }
     }
 }
 
@@ -172,6 +179,13 @@ components.active[3][2] = {
         fg = colors.red,
         bg = colors.bg3,
         style = 'bold'
+    },
+    right_sep = {
+        str = ' ',
+        hl = {
+            fg = colors.fg3,
+            bg = colors.bg3,
+        }
     }
 }
 
@@ -184,6 +198,13 @@ components.active[3][3] = {
         fg = colors.blue,
         bg = colors.bg3,
         style = 'bold'
+    },
+    right_sep = {
+        str = ' ',
+        hl = {
+            fg = colors.fg3,
+            bg = colors.bg3,
+        }
     }
 }
 
@@ -196,6 +217,13 @@ components.active[3][4] = {
         fg = colors.cyan,
         bg = colors.bg3,
         style = 'bold'
+    },
+    right_sep = {
+        str = ' ',
+        hl = {
+            fg = colors.fg3,
+            bg = colors.bg3,
+        }
     }
 }
 
@@ -208,7 +236,22 @@ components.active[3][5] = {
         bg = colors.bg3,
         style = 'bold'
     },
+    left_sep = {
+        str = ' ',
+        hl = {
+            fg = colors.fg3,
+            bg = colors.bg3,
+        }
+    },
+    right_sep = {
+        str = ' ',
+        hl = {
+            fg = colors.fg3,
+            bg = colors.bg3,
+        }
+    }
 }
+
 -- fileFormat
 components.active[3][6] = {
     provider = function() return '' .. vim.bo.fileformat:upper() .. '' end,
@@ -231,8 +274,8 @@ components.active[3][6] = {
             bg = colors.bg3,
         }
     }
-
 }
+
 -- fileEncode
 components.active[3][7] = {
     provider = 'file_encoding',
