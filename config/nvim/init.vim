@@ -27,6 +27,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/vim-vsnip'
     Plug 'neovim/nvim-lspconfig'
+    Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
     " LanguageSpecific
     Plug 'jvirtanen/vim-hcl'
     Plug 'neoclide/jsonc.vim'
@@ -106,6 +107,7 @@ nmap <silent> <tab> :call ToggleRelativeNumber()<CR>
 " プラグイン用キーバインド
 nnoremap <C-k> <cmd>Telescope find_files<cr>
 nnoremap <C-b> <cmd>Defx<cr>
+nnoremap <C-a> <cmd>SymbolsOutline<cr>
 
 au FileType * set fo-=c fo-=r fo-=o
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
@@ -187,7 +189,7 @@ cmp.setup({
     },
 })
 
-vim.g.symbols_outline = {
+require("symbols-outline").setup({
     symbols = {
         File          = {icon = "", hl = "TSURI"},
         Package       = {icon = "", hl = "TSNamespace"},
@@ -216,7 +218,18 @@ vim.g.symbols_outline = {
         Event         = {icon = "", hl = "TSType"},
         Operator      = {icon = "ﬦ", hl = "TSOperator"},
     }
-}
+})
+
+require("lsp_lines").setup()
+vim.diagnostic.config({
+    virtual_text = false,
+})
+vim.keymap.set(
+    "",
+    "<Leader>l",
+    require("lsp_lines").toggle,
+    { desc = "Toggle lsp_lines" }
+)
 
 EOF
 
