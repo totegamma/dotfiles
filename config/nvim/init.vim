@@ -93,6 +93,17 @@ nnoremap <S-Down>  <C-w>+<CR>
 nnoremap <leader>j :split<cr>
 nnoremap <leader>l :vsplit<cr>
 
+" tabキーで行番号を相対表示と切り替え
+function! ToggleRelativeNumber()
+    if &relativenumber
+        set norelativenumber
+    else
+        set relativenumber
+    endif
+endfunction
+nmap <silent> <tab> :call ToggleRelativeNumber()<CR>
+
+" プラグイン用キーバインド
 nnoremap <C-k> <cmd>Telescope find_files<cr>
 nnoremap <C-b> <cmd>Defx<cr>
 
