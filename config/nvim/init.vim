@@ -142,7 +142,8 @@ require('telescope').setup({
                 ["<esc>"] = "close",
             },
         },
-        prompt_prefix = '   ',
+        prompt_prefix   = '   ',
+        selection_caret = ' ',
     },
 })
 
