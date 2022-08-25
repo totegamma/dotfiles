@@ -144,6 +144,7 @@ require('telescope').setup({
         },
         prompt_prefix   = '   ',
         selection_caret = ' ',
+        winblend = 10,
     },
 })
 
@@ -305,4 +306,6 @@ autocmd BufEnter * call defx#redraw()
 
 " for symbols-outline.nvim
 hi FocusedSymbol ctermbg=237 ctermfg=255 guibg=#3e445e guifg=#ffffff
+" for telescope.nvim
+hi TelescopeBorder ctermbg=234 ctermfg=239 guibg=#161821 guifg=#444b71
 
