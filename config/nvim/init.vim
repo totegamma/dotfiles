@@ -105,7 +105,6 @@ endfunction
 nmap <silent> <tab> :call ToggleRelativeNumber()<CR>
 
 " プラグイン用キーバインド
-nnoremap <C-k> <cmd>Telescope find_files<cr>
 nnoremap <C-b> <cmd>Defx<cr>
 nnoremap <C-a> <cmd>SymbolsOutline<cr>
 
@@ -143,10 +142,26 @@ require('telescope').setup({
                 ["<esc>"] = "close",
             },
         },
+        prompt_prefix = '   ',
     },
 })
 
+vim.keymap.set("n",
+               "<C-k>",
+               "<cmd>Telescope find_files<cr>",
+               { noremap = true, silent = true })
+
+require('dressing').setup({
+    select = {
+        telescope = require('telescope.themes').get_cursor()
+    }
+})
+
 require("icon-picker").setup({ disable_legacy_commands = true })
+vim.keymap.set("i",
+               "<C-e>",
+               "<cmd>IconPickerInsert alt_font symbols nerd_font emoji<cr>",
+               { noremap = true, silent = true })
 
 local signs = { Error = "", Warn = "", Hint = "ﳁ", Info = "" }
 for type, icon in pairs(signs) do
