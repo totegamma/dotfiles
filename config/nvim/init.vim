@@ -292,9 +292,9 @@ call defx#custom#column('git', 'indicators', {
 \   'Modified'  : '',
 \   'Staged'    : '',
 \   'Renamed'   : '',
-\   'Ignored'   : '',
+\   'Untracked' : '',
 \   'Deleted'   : '',
-\   'Untracked' : '',
+\   'Ignored'   : '',
 \   'Unknown'   : ''
 \   })
 call defx#custom#column('filename', 'min_width', 28)
