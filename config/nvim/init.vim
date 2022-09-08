@@ -20,6 +20,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'kristijanhusak/defx-git'
     Plug 'simrat39/symbols-outline.nvim'
+    Plug 'romgrk/barbar.nvim'
     " LanguageServer
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
@@ -76,6 +77,20 @@ nnoremap j gj
 nnoremap k gk
 " vを二回で行末まで選択
 vnoremap v $h
+" remap for barbar.nvim
+noremap gt <Cmd>BufferNext<CR>
+noremap gT <Cmd>BufferPrevious<CR>
+noremap gy <Cmd>BufferMoveNext<CR>
+noremap gY <Cmd>BufferMovePrevious<CR>
+noremap g1 <Cmd>BufferGoto 1<CR>
+noremap g2 <Cmd>BufferGoto 2<CR>
+noremap g3 <Cmd>BufferGoto 3<CR>
+noremap g4 <Cmd>BufferGoto 4<CR>
+noremap g5 <Cmd>BufferGoto 5<CR>
+noremap g6 <Cmd>BufferGoto 6<CR>
+noremap g7 <Cmd>BufferGoto 7<CR>
+noremap g8 <Cmd>BufferGoto 8<CR>
+noremap g9 <Cmd>BufferGoto 9<CR>
 
 " Alt + hjkl でウィンドウ間を移動
 let g:tmux_navigator_no_mappings = 1
