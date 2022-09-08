@@ -25,7 +25,7 @@ function install_command() {
     if ! command -v $CMD &> /dev/null ; then
         echo "install "$CMD
         if [ "$1" = 'MAC' ]; then
-            brew install -y $2
+            brew install $2
         else
             apt install -y $2
         fi
@@ -43,7 +43,7 @@ install_command $PLATFORM curl
 install_command $PLATFORM python3
 install_command $PLATFORM python3-pip pip3
 install_command $PLATFORM tmux
-install_command $PLATFORM vim
+install_command $PLATFORM nvim
 install_command $PLATFORM peco
 
 ## install zi
@@ -51,7 +51,7 @@ if [ ! -d ~/.zi ]; then
 	sh -c "$(curl -fsSL https://git.io/get-zi)" -- -i skip -b main
 fi
 
-##install powerline-status
+## install powerline-status
 if ! $(pip3 show powerline-status &> /dev/null); then
 	pip3 install powerline-status
 fi
@@ -60,12 +60,14 @@ if ! $(pip3 show powerline-gitstatus &> /dev/null); then
 	pip3 install powerline-gitstatus
 fi
 
-## install nord
-if [ ! -e ~/.vim/colors/nord.vim ]; then
-	mkdir -p ~/.vim/colors
-	curl https://raw.githubusercontent.com/arcticicestudio/nord-vim/main/colors/nord.vim > ~/.vim/colors/nord.vim
+## install vimplug
+if [ ! -e "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim ]; then
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 fi
 
+## install vimplugins
+nvim -c ":PlugInstall | qa"
 
 # COPY
 cp $SCRIPT_DIR/zshrc ~/.zshrc
