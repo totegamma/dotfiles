@@ -177,8 +177,13 @@ require('dressing').setup({
 require("icon-picker").setup({ disable_legacy_commands = true })
 vim.keymap.set("i",
                "<C-e>",
-               "<cmd>IconPickerInsert alt_font symbols nerd_font emoji<cr>",
+               "<cmd>IconPickerInsert emoji<cr>",
                { noremap = true, silent = true })
+vim.keymap.set("i",
+               "<C-f>",
+               "<cmd>IconPickerInsert alt_font symbols nerd_font<cr>",
+               { noremap = true, silent = true })
+
 
 local signs = { Error = "", Warn = "", Hint = "ﳁ", Info = "" }
 for type, icon in pairs(signs) do
