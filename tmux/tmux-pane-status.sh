@@ -37,7 +37,7 @@ if [[ $PROG = "docker" ]]; then
 	done
 
 	if [[ $positional_args[2] = "exec" ]]; then
-		echo " #[fg=white]$(docker ps | awk "/$positional_args[3]/{print \$NF\"  \"\$1}") #[fg=colour240,bg=default]"
+        echo " $(docker ps -aqf "id=${positional_args[3]}" --format "#[fg=white]{{.Image}}  {{.ID}} #[fg=colour240,bg=default]")"
 		exit
 	fi
 fi
