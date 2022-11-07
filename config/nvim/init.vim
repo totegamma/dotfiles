@@ -168,6 +168,11 @@ vim.keymap.set("n",
                "<cmd>Telescope find_files<cr>",
                { noremap = true, silent = true })
 
+vim.keymap.set("n",
+               "<C-l>",
+               "<cmd>Telescope live_grep<cr>",
+               { noremap = true, silent = true })
+
 require('dressing').setup({
     select = {
         telescope = require('telescope.themes').get_cursor()
