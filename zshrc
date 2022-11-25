@@ -10,6 +10,10 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ## PROMPT
 setopt promptsubst
 function set_prompt {
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+        echo "Exit status: $retVal"
+    fi
 	if $(tmux has-session &> /dev/null); then
 		PROMPT="%F{$(tmux display -p '#{?pane_pipe,yellow,blue}')}[%n@%D{%H:%M}]%f%(3~|.../%2~|%~)$ "
 	else
