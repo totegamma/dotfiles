@@ -93,6 +93,8 @@ autoload -Uz _zinit
 zi load "zsh-users/zsh-syntax-highlighting"
 # コマンド入力途中で上下キー押したときの過去履歴がいい感じに出るようになる
 zi load "zsh-users/zsh-history-substring-search"
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
 # 過去に入力したコマンドの履歴が灰色のサジェストで出る
 zi load "zsh-users/zsh-autosuggestions"
 # 補完強化
