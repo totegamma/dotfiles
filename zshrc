@@ -58,26 +58,27 @@ zstyle ':chpwd:*' recent-dirs-pushd true
 ## git
 export GIT_EDITOR='nvim'
 
-# peco
+# fzf
+export FZF_DEFAULT_OPTS='--reverse --border-label-pos=3 --color=label:bold:white'
 ## 過去に実行したコマンドを選択。ctrl-rにバインド
-function peco-select-history() {
-  BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
+function fzf-select-history() {
+  BUFFER=$(\history -n -r 1 | fzf-tmux -p80% --border-label "history" --query "$LBUFFER")
   CURSOR=$#BUFFER
   zle clear-screen
 }
-zle -N peco-select-history
-bindkey '^r' peco-select-history
+zle -N fzf-select-history
+bindkey '^r' fzf-select-history
 
 ## search a destination from cdr list
-function peco-get-destination-from-cdr() {
+function fzf-get-destination-from-cdr() {
   cdr -l | \
   sed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
-  peco --query "$LBUFFER"
+  fzf-tmux -p80% --border-label "cdr" --query "$LBUFFER"
 }
 
 ## 過去に移動したことのあるディレクトリを選択。ctrl-uにバインド
-function peco-cdr() {
-  local destination="$(peco-get-destination-from-cdr)"
+function fzf-cdr() {
+  local destination="$(fzf-get-destination-from-cdr)"
   if [ -n "$destination" ]; then
     BUFFER="cd $destination"
     zle accept-line
@@ -85,39 +86,33 @@ function peco-cdr() {
     zle reset-prompt
   fi
 }
-zle -N peco-cdr
-bindkey '^u' peco-cdr
+zle -N fzf-cdr
+bindkey '^u' fzf-cdr
 
 # initialize zi
 source ~/.zi/bin/zi.zsh
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# 構文のハイライト
+## zi packages
+zi pack for fzf
+zi load "zpm-zsh/ls"
+zi load "chrissicool/zsh-256color"
+zi load "momo-lab/zsh-abbrev-alias"
+zi load "zsh-users/zsh-completions"
+zi load "zsh-users/zsh-autosuggestions"
 zi load "zsh-users/zsh-syntax-highlighting"
-# コマンド入力途中で上下キー押したときの過去履歴がいい感じに出るようになる
 zi load "zsh-users/zsh-history-substring-search"
+
 bindkey '^P' history-substring-search-up
 bindkey '^N' history-substring-search-down
-# 過去に入力したコマンドの履歴が灰色のサジェストで出る
-zi load "zsh-users/zsh-autosuggestions"
-# 補完強化
-zi load "zsh-users/zsh-completions"
-# 256色表示にする
-zi load "chrissicool/zsh-256color"
-# lsに色を付ける
-zi load "zpm-zsh/ls"
-# abbr
-zi load "momo-lab/zsh-abbrev-alias"
 
 ## abbr
 abbrev-alias -g t="tmux"
 abbrev-alias -g v="vim"
-abbrev-alias -g c="clear"
 
 abbrev-alias -g C="| <COPYBIN>"
 abbrev-alias -g G="| grep"
-abbrev-alias -g P="| peco"
 abbrev-alias -g H="| head"
 abbrev-alias -g T="| tail"
 abbrev-alias -g J="| jq"
@@ -128,8 +123,8 @@ abbrev-alias -g B="then echo 'y'; else echo 'n'; fi"
 abbrev-alias -g dc="docker-compose"
 abbrev-alias -g gcm="git commit -m"
 
-abbrev-alias -g da='docker exec -it $(docker ps | peco | awk "{print \$1}") bash'
-abbrev-alias -g ds='docker stop $(docker ps | peco | awk "{print \$1}")'
+abbrev-alias -g da='docker exec -it $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label "docker exec" | awk "{print \$1}") bash'
+abbrev-alias -g ds='docker stop $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label "docker stop" | awk "{print \$1}")'
 
 # alias & functions
 
@@ -151,6 +146,4 @@ function stoprec() {
 		echo "you must on tmux."
 	fi
 }
-
-
 
