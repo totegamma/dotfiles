@@ -30,6 +30,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'neovim/nvim-lspconfig'
     Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
     " LanguageSpecific
+    Plug 'aliou/bats.vim'
     Plug 'jvirtanen/vim-hcl'
     Plug 'neoclide/jsonc.vim'
     Plug 'bfrg/vim-cpp-modern'
@@ -171,6 +172,11 @@ vim.keymap.set("n",
 vim.keymap.set("n",
                "<C-l>",
                "<cmd>Telescope live_grep<cr>",
+               { noremap = true, silent = true })
+
+vim.keymap.set("n",
+               "<C-e>",
+               "<cmd>Telescope diagnostics<cr>",
                { noremap = true, silent = true })
 
 require('dressing').setup({

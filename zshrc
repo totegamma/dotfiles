@@ -68,7 +68,8 @@ export FZF_DEFAULT_OPTS='--reverse
                          --color="gutter:black,border:blue,label:bold:blue,pointer:white,info:blue,hl:blue,hl+:cyan"
                          --prompt=" "
                          --pointer=" "'
-## 過去に実行したコマンドを選択。ctrl-rにバインド
+
+# history
 function fzf-select-history() {
   BUFFER=$(\history -n -r 1 | fzf-tmux -p80% --border-label " history " --query "$LBUFFER")
   CURSOR=$#BUFFER
@@ -76,6 +77,7 @@ function fzf-select-history() {
 zle -N fzf-select-history
 bindkey '^r' fzf-select-history
 
+# cdr
 ## search a destination from cdr list
 function fzf-get-destination-from-cdr() {
   cdr -l | \
@@ -83,7 +85,6 @@ function fzf-get-destination-from-cdr() {
   fzf-tmux -p80% --border-label " cdr " --query "$LBUFFER"
 }
 
-## 過去に移動したことのあるディレクトリを選択。ctrl-uにバインド
 function fzf-cdr() {
   local destination="$(fzf-get-destination-from-cdr)"
   if [ -n "$destination" ]; then
@@ -95,6 +96,14 @@ function fzf-cdr() {
 }
 zle -N fzf-cdr
 bindkey '^u' fzf-cdr
+
+# file
+function fzf-select-file() {
+  BUFFER="$LBUFFER$(fd --type f | fzf-tmux -p80% --border-label ' history ')"
+  CURSOR=$#BUFFER
+}
+zle -N fzf-select-file
+bindkey '^y' fzf-select-file
 
 # initialize zi
 source ~/.zi/bin/zi.zsh
