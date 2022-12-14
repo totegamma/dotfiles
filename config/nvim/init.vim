@@ -83,6 +83,7 @@ noremap gt <Cmd>BufferNext<CR>
 noremap gT <Cmd>BufferPrevious<CR>
 noremap gy <Cmd>BufferMoveNext<CR>
 noremap gY <Cmd>BufferMovePrevious<CR>
+noremap gx <Cmd>BufferClose<CR>
 noremap g1 <Cmd>BufferGoto 1<CR>
 noremap g2 <Cmd>BufferGoto 2<CR>
 noremap g3 <Cmd>BufferGoto 3<CR>
