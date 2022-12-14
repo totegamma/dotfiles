@@ -59,10 +59,18 @@ zstyle ':chpwd:*' recent-dirs-pushd true
 export GIT_EDITOR='nvim'
 
 # fzf
-export FZF_DEFAULT_OPTS='--reverse --border-label-pos=3 --color=label:bold:white'
+export FZF_DEFAULT_OPTS='--reverse
+                         --border-label-pos=3
+                         --header=""
+                         --info="inline"
+                         --no-separator
+                         --padding="1"
+                         --color="gutter:black,border:blue,label:bold:blue,pointer:white,info:blue,hl:blue,hl+:cyan"
+                         --prompt=" "
+                         --pointer=" "'
 ## 過去に実行したコマンドを選択。ctrl-rにバインド
 function fzf-select-history() {
-  BUFFER=$(\history -n -r 1 | fzf-tmux -p80% --border-label "history" --query "$LBUFFER")
+  BUFFER=$(\history -n -r 1 | fzf-tmux -p80% --border-label " history " --query "$LBUFFER")
   CURSOR=$#BUFFER
   zle clear-screen
 }
@@ -73,7 +81,7 @@ bindkey '^r' fzf-select-history
 function fzf-get-destination-from-cdr() {
   cdr -l | \
   sed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
-  fzf-tmux -p80% --border-label "cdr" --query "$LBUFFER"
+  fzf-tmux -p80% --border-label " cdr " --query "$LBUFFER"
 }
 
 ## 過去に移動したことのあるディレクトリを選択。ctrl-uにバインド
@@ -123,8 +131,8 @@ abbrev-alias -g B="then echo 'y'; else echo 'n'; fi"
 abbrev-alias -g dc="docker-compose"
 abbrev-alias -g gcm="git commit -m"
 
-abbrev-alias -g da='docker exec -it $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label "docker exec" | awk "{print \$1}") bash'
-abbrev-alias -g ds='docker stop $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label "docker stop" | awk "{print \$1}")'
+abbrev-alias -g da='docker exec -it $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker exec " | awk "{print \$1}") bash'
+abbrev-alias -g ds='docker stop $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker stop " | awk "{print \$1}")'
 
 # alias & functions
 
