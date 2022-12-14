@@ -72,7 +72,6 @@ export FZF_DEFAULT_OPTS='--reverse
 function fzf-select-history() {
   BUFFER=$(\history -n -r 1 | fzf-tmux -p80% --border-label " history " --query "$LBUFFER")
   CURSOR=$#BUFFER
-  zle clear-screen
 }
 zle -N fzf-select-history
 bindkey '^r' fzf-select-history
