@@ -23,6 +23,11 @@ function set_prompt {
 set_prompt
 precmd_functions+=(set_prompt)
 
+TMOUT=10
+TRAPALRM() {
+    zle reset-prompt
+}
+
 # arch specific settings
 if [ "$OSTYPE" != linux-gnu ]; then  # Is this the macOS system?
 	## homebrew
