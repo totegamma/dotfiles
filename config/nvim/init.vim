@@ -11,6 +11,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'lewis6991/gitsigns.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'christoomey/vim-tmux-navigator'
+    Plug 'totegamma/vim-tmux-resizer'
     " Visualize
     Plug 'cocopon/iceberg.vim'
     Plug 'feline-nvim/feline.nvim'
@@ -21,6 +22,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'kristijanhusak/defx-git'
     Plug 'simrat39/symbols-outline.nvim'
     Plug 'romgrk/barbar.nvim'
+    Plug 'j-hui/fidget.nvim'
+    Plug 'petertriho/nvim-scrollbar'
     " LanguageServer
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
@@ -137,6 +140,10 @@ let g:lightline = {
 \   }
 
 lua << EOF
+require'nvim-treesitter.configs'.setup {
+    auto_install = true,
+}
+
 require('gitsigns').setup({
     on_attach = function(buffer)
         vim.opt.signcolumn = "yes"
@@ -144,12 +151,50 @@ require('gitsigns').setup({
 })
 require('feline_config')
 
+require("scrollbar").setup {
+    handlers = {
+        cursor = false,
+        diagnostic = true,
+        gitsigns = false,
+        handle = true,
+        search = false,
+    },
+}
+
 require('due_nvim').setup {}
 
 require("indent_blankline").setup {
     char = '▏',
     show_current_context = true,
 }
+
+require"fidget".setup{
+    text = {
+        spinner = "arc"
+    }
+}
+
+
+require('lspsaga').init_lsp_saga({
+    border_style = "rounded",
+    saga_winblend = 10,
+    code_action_icon = "",
+    code_action_lightbulb = {
+        enable = true,
+        enable_in_insert = true,
+        cache_code_action = true,
+        sign = false,
+        update_time = 150,
+        sign_priority = 20,
+        virtual_text = true,
+    },
+    rename_action_quit = '<ESC>',
+})
+vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+vim.keymap.set({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
+vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
+vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
+vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
 
 require('telescope').setup({
     defaults = {
@@ -280,6 +325,24 @@ vim.keymap.set(
     { desc = "Toggle lsp_lines" }
 )
 
+local highlights = {
+    -- LSP Saga
+    LspSagaCodeActionBorder    = { fg = '#89b8c2' },
+    LspSagaLspFinderBorder     = { fg = '#89b8c2' },
+    LspSagaAutoPreview         = { fg = '#89b8c2' },
+    FinderSpinnerBorder        = { fg = '#89b8c2' },
+    DefinitionBorder           = { fg = '#89b8c2' },
+    LspSagaHoverBorder         = { fg = '#89b8c2' },
+    LspSagaRenameBorder        = { fg = '#89b8c2' },
+    LspSagaDiagnosticBorder    = { fg = '#89b8c2' },
+    LspSagaSignatureHelpBorder = { fg = '#89b8c2' },
+    LSOutlinePreviewBorder     = { fg = '#89b8c2' },
+}
+
+for group, conf in pairs(highlights) do
+    vim.api.nvim_set_hl(0, group, vim.tbl_extend('keep', conf, { default = true }))
+end
+
 EOF
 
 let g:defx_icons_column_length = 2
@@ -340,4 +403,6 @@ autocmd BufEnter * call defx#redraw()
 hi FocusedSymbol ctermbg=237 ctermfg=255 guibg=#3e445e guifg=#ffffff
 " for telescope.nvim
 hi TelescopeBorder ctermbg=234 ctermfg=239 guibg=#161821 guifg=#444b71
+
+hi FidgetTitle guifg=#89b8c2
 
