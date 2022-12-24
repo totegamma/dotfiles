@@ -98,22 +98,28 @@ noremap g7 <Cmd>BufferGoto 7<CR>
 noremap g8 <Cmd>BufferGoto 8<CR>
 noremap g9 <Cmd>BufferGoto 9<CR>
 
-" Alt + hjkl でウィンドウ間を移動
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <M-k> :TmuxNavigateUp<cr><M-l>
+nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
+let g:tmux_resizer_no_mappings = 1
+nnoremap <silent> <M-S-h> :TmuxResizeLeft<cr>
+nnoremap <silent> <M-S-l> :TmuxResizeRight<cr>
+nnoremap <silent> <M-S-k> :TmuxResizeUp<cr>
+nnoremap <silent> <M-S-j> :TmuxResizeDown<cr>
 
-" Shift + 矢印でウィンドウサイズを変更
-nnoremap <S-Left>  <C-w><<CR>
-nnoremap <S-Right> <C-w>><CR>
-nnoremap <S-Up>    <C-w>-<CR>
-nnoremap <S-Down>  <C-w>+<CR>
-
-" split
-nnoremap <leader>j :split<cr>
-nnoremap <leader>l :vsplit<cr>
+" commandline
+cnoremap <C-A> <Home>
+cnoremap <C-B> <Left>
+cnoremap <C-D> <Del>
+cnoremap <C-E> <End>
+cnoremap <C-F> <Right>
+cnoremap <C-N> <Down>
+cnoremap <C-P> <Up>
+cnoremap <C-H> <BS>
+cnoremap <Esc><C-B> <S-Left>
+cnoremap <Esc><C-F> <S-Right>
 
 " tabキーで行番号を相対表示と切り替え
 function! ToggleRelativeNumber()
