@@ -31,6 +31,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/vim-vsnip'
     Plug 'neovim/nvim-lspconfig'
+    Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
     Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
     " LanguageSpecific
     Plug 'aliou/bats.vim'
