@@ -76,7 +76,7 @@ export FZF_DEFAULT_OPTS='--reverse
 
 # history
 function fzf-select-history() {
-  BUFFER=$(\history -n -r 1 | fzf-tmux -p80% --border-label " history " --query "$LBUFFER")
+  BUFFER=$(\history -n -r 1 | fzf-tmux -p80% --border-label " history " --no-sort --query "$LBUFFER")
   CURSOR=$#BUFFER
 }
 zle -N fzf-select-history
@@ -87,7 +87,7 @@ bindkey '^r' fzf-select-history
 function fzf-get-destination-from-cdr() {
   cdr -l | \
   sed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
-  fzf-tmux -p80% --border-label " cdr " --query "$LBUFFER"
+  fzf-tmux -p80% --border-label " cdr " --no-sort --query "$LBUFFER"
 }
 
 function fzf-cdr() {
@@ -104,7 +104,7 @@ bindkey '^u' fzf-cdr
 
 # file
 function fzf-select-file() {
-  BUFFER="$LBUFFER$(fd --type f | fzf-tmux -p80% --border-label ' history ')"
+  BUFFER="$LBUFFER$(fd --type f | fzf-tmux -p80% --border-label ' file ')"
   CURSOR=$#BUFFER
 }
 zle -N fzf-select-file
@@ -118,6 +118,7 @@ autoload -Uz _zinit
 ## zi packages
 zi pack for fzf
 zi load "zpm-zsh/ls"
+zi load "asdf-vm/asdf"
 zi load "chrissicool/zsh-256color"
 zi load "momo-lab/zsh-abbrev-alias"
 zi load "zsh-users/zsh-completions"
@@ -137,12 +138,12 @@ abbrev-alias -g G="| grep"
 abbrev-alias -g H="| head"
 abbrev-alias -g T="| tail"
 abbrev-alias -g J="| jq"
-abbrev-alias -g E="| sed -e 's/\x1b\[[0-9;]*m//g'"
+abbrev-alias -g Y="| yq"
 abbrev-alias -g N="&> /dev/null"
 abbrev-alias -g B="then echo 'y'; else echo 'n'; fi"
 
 abbrev-alias -g dc="docker-compose"
-abbrev-alias -g gcm="git commit -m"
+abbrev-alias -g gc="git commit -m"
 
 abbrev-alias -g da='docker exec -it $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker exec " | awk "{print \$1}") bash'
 abbrev-alias -g ds='docker stop $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker stop " | awk "{print \$1}")'
