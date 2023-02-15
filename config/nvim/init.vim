@@ -11,7 +11,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'lewis6991/gitsigns.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'christoomey/vim-tmux-navigator'
-    Plug 'totegamma/vim-tmux-resizer'
+    Plug 'totegamma/better-vim-tmux-resizer'
     " Visualize
     Plug 'cocopon/iceberg.vim'
     Plug 'feline-nvim/feline.nvim'
@@ -31,7 +31,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/vim-vsnip'
     Plug 'neovim/nvim-lspconfig'
-    Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+    Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
     " LanguageSpecific
     Plug 'aliou/bats.vim'
     Plug 'jvirtanen/vim-hcl'
@@ -156,7 +156,6 @@ require('gitsigns').setup({
     end
 })
 require('feline_config')
-
 require("scrollbar").setup {
     handlers = {
         cursor = false,
@@ -166,7 +165,6 @@ require("scrollbar").setup {
         search = false,
     },
 }
-
 require('due_nvim').setup {}
 
 require("indent_blankline").setup {
@@ -180,22 +178,104 @@ require"fidget".setup{
     }
 }
 
+local colors = {
+    black=        '#161821',
+    red=          '#E27878',
+    green=        '#B4BE82',
+    yellow=       '#E2A478',
+    blue=         '#84A0C6',
+    purple=       '#A093C7',
+    cyan=         '#89B8C2',
+    white=        '#C6C8D1',
+    brightBlack=  '#6B7089',
+    brightRed=    '#E98989',
+    brightGreen=  '#C0CA8E',
+    brightYellow= '#E9B189',
+    brightBlue=   '#91ACD1',
+    brightPurple= '#ADA0D3',
+    brightCyan=   '#95C4CE',
+    brightWhite=  '#D2D4DE',
+    fg1= '#17171b',
+    fg2= '#6b7089',
+    fg3= '#3e445e',
+    bg1= '#818596',
+    bg2= '#2e313f',
+    bg3= '#0f1117',
+    fg= '#3e445e',
+    bg= '#0f1117'
+}
 
-require('lspsaga').init_lsp_saga({
-    border_style = "rounded",
-    saga_winblend = 10,
-    code_action_icon = "",
-    code_action_lightbulb = {
+require('lspsaga').setup({
+    symbol_in_winbar = {
+        enable = true,
+        separator = "  ",
+        hide_keyword = true,
+        show_file = true,
+        folder_level = 2,
+        respect_root = false,
+        color_mode = true,
+    },
+    lightbulb = {
         enable = true,
         enable_in_insert = true,
-        cache_code_action = true,
         sign = false,
-        update_time = 150,
-        sign_priority = 20,
+        sign_priority = 40,
         virtual_text = true,
     },
-    rename_action_quit = '<ESC>',
+    ui = {
+        title = true,
+        border = "rounded",
+        winblend = 10,
+        expand = "",
+        collapse = "",
+        preview = "󱙓 ",
+        code_action = " ",
+        diagnostic = " ",
+        incoming = " ",
+        outgoing = " ",
+        hover = ' ',
+        kind = {
+            File = { ' ', colors.white },
+            Package = { ' ', colors.purple },
+            Module = { ' ', colors.blue },
+            Namespace = { ' ', colors.orange },
+            Interface = { ' ', colors.orange },
+            TypeParameter = { ' ', colors.green },
+            Class = { ' ', colors.purple },
+            Constructor = { 'ƒ ', colors.blue },
+            Method = { 'ƒ ', colors.purple },
+            Function = { 'ƒ ', colors.purple },
+            Property = { ' ', colors.cyan },
+            Field = { ' ', colors.yellow },
+            Variable = { ' ', colors.blue },
+            Constant = { ' ', colors.cyan },
+            String = { ' ', colors.green },
+            Number = { '藍 ', colors.green },
+            Boolean = { 'ﲉ ', colors.orange },
+            Enum = { '', colors.green },
+            Struct = { ' ', colors.purple },
+            Array = { ' ', colors.blue },
+            Object = { ' ', colors.orange },
+            Key = { ' ', colors.red },
+            Null = { 'ﳠ ', colors.red },
+            EnumMember = { ' ', colors.green },
+            Event = { ' ', colors.purple },
+            Operator = { 'ﬦ ', colors.green },
+            -- ccls
+            TypeAlias = { ' ', colors.green },
+            Parameter = { ' ', colors.blue },
+            StaticMethod = { 'ﴂ ', colors.orange },
+            Macro = { ' ', colors.red },
+            -- for completion sb microsoft!!!
+            Text = { ' ', colors.green },
+            Snippet = { ' ', colors.blue },
+            Folder = { '󰉋 ', colors.yellow },
+            Unit = { ' ', colors.cyan },
+            Value = { ' ', colors.blue },
+        }
+    }
 })
+
 vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 vim.keymap.set({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
 vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
@@ -257,7 +337,7 @@ end
 require("mason").setup()
 require('mason-lspconfig').setup_handlers({ function(server)
     local opt = {
-        capabilities = require('cmp_nvim_lsp').update_capabilities(
+        capabilities = require('cmp_nvim_lsp').default_capabilities(
             vim.lsp.protocol.make_client_capabilities()
         ),
         on_attach = function(client, bfnr)
@@ -320,17 +400,6 @@ require("symbols-outline").setup({
     }
 })
 
-require("lsp_lines").setup()
-vim.diagnostic.config({
-    virtual_text = false,
-})
-vim.keymap.set(
-    "",
-    "<Leader>l",
-    require("lsp_lines").toggle,
-    { desc = "Toggle lsp_lines" }
-)
-
 local highlights = {
     -- LSP Saga
     LspSagaCodeActionBorder    = { fg = '#89b8c2' },
@@ -386,7 +455,7 @@ call defx#custom#option('_', {
 \   'buffer_name': 'exlorer',
 \   'toggle': 1,
 \   'resume': 1,
-\   'columns': 'indent:icons:filename:type:git:mark',
+\   'columns': 'indent:icons:filename:git:mark',
 \   })
 
 call defx#custom#column('git', 'indicators', {

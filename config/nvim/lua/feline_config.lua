@@ -176,7 +176,7 @@ components.active[3][2] = {
         return lsp.diagnostics_exist('WARN')
     end,
     hl = {
-        fg = colors.red,
+        fg = colors.yellow,
         bg = colors.bg3,
         style = 'bold'
     },
