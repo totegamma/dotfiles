@@ -178,32 +178,14 @@ require"fidget".setup{
     }
 }
 
-local colors = {
-    black=        '#161821',
-    red=          '#E27878',
-    green=        '#B4BE82',
-    yellow=       '#E2A478',
-    blue=         '#84A0C6',
-    purple=       '#A093C7',
-    cyan=         '#89B8C2',
-    white=        '#C6C8D1',
-    brightBlack=  '#6B7089',
-    brightRed=    '#E98989',
-    brightGreen=  '#C0CA8E',
-    brightYellow= '#E9B189',
-    brightBlue=   '#91ACD1',
-    brightPurple= '#ADA0D3',
-    brightCyan=   '#95C4CE',
-    brightWhite=  '#D2D4DE',
-    fg1= '#17171b',
-    fg2= '#6b7089',
-    fg3= '#3e445e',
-    bg1= '#818596',
-    bg2= '#2e313f',
-    bg3= '#0f1117',
-    fg= '#3e445e',
-    bg= '#0f1117'
+local highlights = {
+    -- LSP Saga
+    SagaBorder = { fg = '#84A0C6', bg = 'NONE' },
 }
+
+for group, conf in pairs(highlights) do
+    vim.api.nvim_set_hl(0, group, vim.tbl_extend('keep', conf, { default = true }))
+end
 
 require('lspsaga').setup({
     symbol_in_winbar = {
@@ -235,43 +217,43 @@ require('lspsaga').setup({
         outgoing = " ",
         hover = ' ',
         kind = {
-            File = { ' ', colors.white },
-            Package = { ' ', colors.purple },
-            Module = { ' ', colors.blue },
-            Namespace = { ' ', colors.orange },
-            Interface = { ' ', colors.orange },
-            TypeParameter = { ' ', colors.green },
-            Class = { ' ', colors.purple },
-            Constructor = { 'ƒ ', colors.blue },
-            Method = { 'ƒ ', colors.purple },
-            Function = { 'ƒ ', colors.purple },
-            Property = { ' ', colors.cyan },
-            Field = { ' ', colors.yellow },
-            Variable = { ' ', colors.blue },
-            Constant = { ' ', colors.cyan },
-            String = { ' ', colors.green },
-            Number = { '藍 ', colors.green },
-            Boolean = { 'ﲉ ', colors.orange },
-            Enum = { '', colors.green },
-            Struct = { ' ', colors.purple },
-            Array = { ' ', colors.blue },
-            Object = { ' ', colors.orange },
-            Key = { ' ', colors.red },
-            Null = { 'ﳠ ', colors.red },
-            EnumMember = { ' ', colors.green },
-            Event = { ' ', colors.purple },
-            Operator = { 'ﬦ ', colors.green },
+            File          = { ' ',  'TSURI' },
+            Package       = { ' ',  'TSNamespace' },
+            Module        = { ' ',  'TSNamespace' },
+            Namespace     = { ' ',  'TSNamespace' },
+            Interface     = { ' ',  'TSType' },
+            TypeParameter = { ' ',  'TSParameter' },
+            Class         = { ' ',  'TSType' },
+            Constructor   = { 'ƒ ',  'TSConstructor' },
+            Method        = { 'ƒ ',  'TSMethod' },
+            Function      = { 'ƒ ',  'TSFunction' },
+            Property      = { ' ',  'TSMethod' },
+            Field         = { ' ',  'TSField' },
+            Variable      = { ' ',  'TSConstant' },
+            Constant      = { ' ',  'TSConstant' },
+            String        = { ' ',  'TSString' },
+            Number        = { '藍 ', 'TSNumber' },
+            Boolean       = { 'ﲉ ',  'TSBoolean' },
+            Enum          = { '',   'TSType' },
+            Struct        = { ' ',  'TSType' },
+            Array         = { ' ',  'TSConstant' },
+            Object        = { ' ',  'TSType' },
+            Key           = { ' ',  'TSType' },
+            Null          = { 'ﳠ ',  'TSType' },
+            EnumMember    = { ' ',  'TSField' },
+            Event         = { ' ',  'TSType' },
+            Operator      = { 'ﬦ ',  'TSOperator' },
             -- ccls
-            TypeAlias = { ' ', colors.green },
-            Parameter = { ' ', colors.blue },
-            StaticMethod = { 'ﴂ ', colors.orange },
-            Macro = { ' ', colors.red },
+            TypeAlias     = { ' ',  'TSType' },
+            Parameter     = { ' ',  'TSParameter' },
+            StaticMethod  = { 'ﴂ ',  'TSMethod' },
+            Macro         = { ' ',  'TSConstant' },
             -- for completion sb microsoft!!!
-            Text = { ' ', colors.green },
-            Snippet = { ' ', colors.blue },
-            Folder = { '󰉋 ', colors.yellow },
-            Unit = { ' ', colors.cyan },
-            Value = { ' ', colors.blue },
+            Text          = { ' ',  'TSString' },
+            Snippet       = { ' ',  'TSField' },
+            Folder        = { '󰉋 ', 'TSConstant'} ,
+            Unit          = { ' ',  'TSNumber' },
+            Value         = { ' ',  'TSParameter' },
         }
     }
 })
@@ -400,29 +382,15 @@ require("symbols-outline").setup({
     }
 })
 
-local highlights = {
-    -- LSP Saga
-    LspSagaCodeActionBorder    = { fg = '#89b8c2' },
-    LspSagaLspFinderBorder     = { fg = '#89b8c2' },
-    LspSagaAutoPreview         = { fg = '#89b8c2' },
-    FinderSpinnerBorder        = { fg = '#89b8c2' },
-    DefinitionBorder           = { fg = '#89b8c2' },
-    LspSagaHoverBorder         = { fg = '#89b8c2' },
-    LspSagaRenameBorder        = { fg = '#89b8c2' },
-    LspSagaDiagnosticBorder    = { fg = '#89b8c2' },
-    LspSagaSignatureHelpBorder = { fg = '#89b8c2' },
-    LSOutlinePreviewBorder     = { fg = '#89b8c2' },
-}
-
-for group, conf in pairs(highlights) do
-    vim.api.nvim_set_hl(0, group, vim.tbl_extend('keep', conf, { default = true }))
-end
-
 EOF
 
 let g:defx_icons_column_length = 2
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
+  nnoremap <silent><buffer><expr> K
+  \ defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N
+  \ defx#do_action('new_file')
   nnoremap <silent><buffer><expr> <CR>
    \ defx#do_action('drop')
   nnoremap <silent><buffer><expr> c
