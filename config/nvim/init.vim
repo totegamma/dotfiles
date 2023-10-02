@@ -2,6 +2,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
     " Utils
     Plug 'NFrid/due.nvim'
+    Plug 'github/copilot.vim'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'christoomey/vim-system-copy'
     Plug 'nvim-lua/plenary.nvim'
@@ -22,8 +23,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'kristijanhusak/defx-git'
     Plug 'simrat39/symbols-outline.nvim'
     Plug 'romgrk/barbar.nvim'
-    Plug 'j-hui/fidget.nvim'
+    Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
     Plug 'petertriho/nvim-scrollbar'
+    Plug 'f-person/git-blame.nvim'
     " LanguageServer
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
@@ -167,7 +169,7 @@ require("scrollbar").setup {
 }
 require('due_nvim').setup {}
 
-require("indent_blankline").setup {
+require("ibl").setup {
     char = '▏',
     show_current_context = true,
 }
