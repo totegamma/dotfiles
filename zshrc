@@ -130,9 +130,6 @@ bindkey '^P' history-substring-search-up
 bindkey '^N' history-substring-search-down
 
 ## abbr
-abbrev-alias -g t="tmux"
-abbrev-alias -g v="vim"
-
 abbrev-alias -g C="| <COPYBIN>"
 abbrev-alias -g G="| grep"
 abbrev-alias -g H="| head"
@@ -142,16 +139,17 @@ abbrev-alias -g Y="| yq"
 abbrev-alias -g N="&> /dev/null"
 abbrev-alias -g B="then echo 'y'; else echo 'n'; fi"
 
-abbrev-alias -g dc="docker-compose"
+abbrev-alias -g dc="docker compose"
 abbrev-alias -g gc="git commit -m"
 
-abbrev-alias -g da='docker exec -it $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker exec " | awk "{print \$1}") bash'
-abbrev-alias -g ds='docker stop $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker stop " | awk "{print \$1}")'
+abbrev-alias -g curla='curl -s -H "accept: application/ld+json"'
 
 # alias & functions
 
 alias vim="nvim"
 alias reload="source ~/.zshrc"
+alias da='docker exec -it $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker exec " | awk "{print \$1}") bash'
+alias ds='docker stop $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker stop " | awk "{print \$1}")'
 
 function startrec() {
 	if [ -v TMUX ]; then
@@ -167,5 +165,12 @@ function stoprec() {
 	else
 		echo "you must on tmux."
 	fi
+}
+
+function genid {
+    table=('2' '3' '4' '5' '6' '7' '8' '9' 'A' 'B' 'C' 'D' 'E' 'F' 'G' 'H' 'J' 'K' 'L' 'M' 'N' 'P' 'Q' 'R' 'S' 'T' 'U' 'V' 'W' 'X' 'Y' 'Z')
+    for i in $(seq 1 $1); do
+        echo -n ${table[$((RANDOM%${#table[@]}))]}
+    done
 }
 

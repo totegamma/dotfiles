@@ -148,6 +148,14 @@ let g:lightline = {
 \   }
 
 lua << EOF
+
+vim.diagnostic.config({
+    underline = true,
+    virtual_text = false,
+    signs = true,
+    update_in_insert = false,
+})
+
 require'nvim-treesitter.configs'.setup {
     auto_install = true,
 }
@@ -265,6 +273,7 @@ vim.keymap.set({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent
 vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
 vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
+vim.keymap.set("n", "?", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
 
 require('telescope').setup({
     defaults = {
