@@ -268,11 +268,14 @@ require('lspsaga').setup({
     }
 })
 
-vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+vim.keymap.set("n", "gh", "<cmd>Lspsaga finder<CR>", { silent = true })
 vim.keymap.set({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
 vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
 vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
-vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
+vim.keymap.set("n", "gk", "<cmd>Lspsaga goto_definition<CR>", { silent = true })
+vim.keymap.set("n", "gi", "<cmd>Lspsaga incoming_calls<CR>", { silent = true })
+vim.keymap.set("n", "gn", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
+vim.keymap.set("n", "gp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
 vim.keymap.set("n", "?", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
 
 require('telescope').setup({
