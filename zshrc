@@ -150,6 +150,7 @@ alias vim="nvim"
 alias reload="source ~/.zshrc"
 alias da='docker exec -it $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker exec " | awk "{print \$1}") bash'
 alias ds='docker stop $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker stop " | awk "{print \$1}")'
+alias gd='cd "$(git rev-parse --show-toplevel)"'
 
 function startrec() {
 	if [ -v TMUX ]; then
@@ -172,5 +173,9 @@ function genid {
     for i in $(seq 1 $1); do
         echo -n ${table[$((RANDOM%${#table[@]}))]}
     done
+}
+
+function ask {
+    expect -c "spawn chatgpt-cli; send $1\r; interact"
 }
 
