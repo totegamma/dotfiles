@@ -64,8 +64,7 @@ zstyle ':chpwd:*' recent-dirs-pushd true
 export GIT_EDITOR='nvim'
 
 # fzf
-export FZF_DEFAULT_OPTS='--reverse
-                         --border-label-pos=3
+export FZF_DEFAULT_OPTS='--border-label-pos=3
                          --header=""
                          --info="inline"
                          --no-separator
@@ -76,7 +75,7 @@ export FZF_DEFAULT_OPTS='--reverse
 
 # history
 function fzf-select-history() {
-  BUFFER=$(\history -n -r 1 | fzf-tmux -p80% --border-label " history " --no-sort --query "$LBUFFER")
+  BUFFER=$(\history -n -r 1 | fzf-tmux -p80% --reverse --border-label " history " --no-sort --query "$LBUFFER")
   CURSOR=$#BUFFER
 }
 zle -N fzf-select-history
@@ -87,7 +86,7 @@ bindkey '^r' fzf-select-history
 function fzf-get-destination-from-cdr() {
   cdr -l | \
   sed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
-  fzf-tmux -p80% --border-label " cdr " --no-sort --query "$LBUFFER"
+  fzf-tmux -p80% --reverse --border-label " cdr " --no-sort --query "$LBUFFER"
 }
 
 function fzf-cdr() {
@@ -104,16 +103,49 @@ bindkey '^u' fzf-cdr
 
 # file
 function fzf-select-file() {
-  BUFFER="$LBUFFER$(fd --type f | fzf-tmux -p80% --border-label ' file ')"
+  BUFFER="$LBUFFER$(fd --type f | fzf-tmux -p80% --reverse --border-label ' file ' --preview 'bat --color=always --theme=base16 --style=numbers --line-range :100 {}')"
   CURSOR=$#BUFFER
 }
 zle -N fzf-select-file
 bindkey '^y' fzf-select-file
 
+# ripgrep
+function fzf-rg() {
+  # local pattern
+  BUFFER="$LBUFFER$(fzf-tmux \
+      -p80% \
+      --reverse \
+      --border-label " rg " \
+      --disabled \
+      --bind 'change:reload:rg --no-heading --line-number {q} || true' \
+      --preview '
+        file=$(echo {} | awk -F ":" "{print \$1}")
+        line=$(echo {} | awk -F ":" "{print \$2}")
+        from=$(($line - 5))
+        if [ $from -lt 1 ]; then
+          from=1
+        fi
+        bat $file \
+        --color=always \
+        --theme=base16 \
+        --style=numbers \
+        -H $line \
+        -r $from:
+      ' \
+    | \
+    awk -F ":" '{print $1}'
+  )"
+
+  CURSOR=$#BUFFER
+}
+zle -N fzf-rg
+bindkey '^g' fzf-rg
+
 # initialize zi
 source ~/.zi/bin/zi.zsh
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
+autoload -Uz compinit && compinit
 
 ## zi packages
 zi pack for fzf
@@ -125,9 +157,14 @@ zi load "zsh-users/zsh-completions"
 zi load "zsh-users/zsh-autosuggestions"
 zi load "zsh-users/zsh-syntax-highlighting"
 zi load "zsh-users/zsh-history-substring-search"
+zi load "Aloxaf/fzf-tab"
+
+source <(kubectl completion zsh)
 
 bindkey '^P' history-substring-search-up
 bindkey '^N' history-substring-search-down
+
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 ## abbr
 abbrev-alias -g C="| <COPYBIN>"
@@ -148,9 +185,10 @@ abbrev-alias -g curla='curl -s -H "accept: application/ld+json"'
 
 alias vim="nvim"
 alias reload="source ~/.zshrc"
-alias da='docker exec -it $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker exec " | awk "{print \$1}") bash'
-alias ds='docker stop $(docker ps | tail -n +2 | fzf-tmux -p80% --border-label " docker stop " | awk "{print \$1}")'
+alias da='docker exec -it $(docker ps | tail -n +2 | fzf-tmux -p80% --reverse --border-label " docker exec " | awk "{print \$1}") bash'
+alias ds='docker stop $(docker ps | tail -n +2 | fzf-tmux -p80% --reverse --border-label " docker stop " | awk "{print \$1}")'
 alias gd='cd "$(git rev-parse --show-toplevel)"'
+alias lls="ls"
 
 function startrec() {
 	if [ -v TMUX ]; then
@@ -173,9 +211,5 @@ function genid {
     for i in $(seq 1 $1); do
         echo -n ${table[$((RANDOM%${#table[@]}))]}
     done
-}
-
-function ask {
-    expect -c "spawn chatgpt-cli; send $1\r; interact"
 }
 

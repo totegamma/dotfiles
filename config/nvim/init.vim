@@ -13,6 +13,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'totegamma/better-vim-tmux-resizer'
+    Plug 'totegamma/gotogh.nvim'
     " Visualize
     Plug 'cocopon/iceberg.vim'
     Plug 'feline-nvim/feline.nvim'
@@ -99,6 +100,10 @@ noremap g7 <Cmd>BufferGoto 7<CR>
 noremap g8 <Cmd>BufferGoto 8<CR>
 noremap g9 <Cmd>BufferGoto 9<CR>
 
+noremap go <Cmd>Gotogh<CR>
+noremap gc <Cmd>GotoghCommit<CR>
+noremap gp <Cmd>GotoghPr<CR>
+
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
@@ -156,6 +161,8 @@ vim.diagnostic.config({
     update_in_insert = false,
 })
 
+require('gotogh').setup()
+
 require'nvim-treesitter.configs'.setup {
     auto_install = true,
 }
@@ -178,8 +185,7 @@ require("scrollbar").setup {
 require('due_nvim').setup {}
 
 require("ibl").setup {
-    char = '▏',
-    show_current_context = true,
+    indent = {char = '▏'}
 }
 
 require"fidget".setup{
@@ -198,6 +204,11 @@ for group, conf in pairs(highlights) do
 end
 
 require('lspsaga').setup({
+    finder = {
+        keys = {
+            tabnew = '<CR>'
+        }
+    },
     symbol_in_winbar = {
         enable = true,
         separator = "  ",
@@ -221,49 +232,49 @@ require('lspsaga').setup({
         expand = "",
         collapse = "",
         preview = "󱙓 ",
-        code_action = " ",
+        code_action = " ",
         diagnostic = " ",
         incoming = " ",
         outgoing = " ",
         hover = ' ',
         kind = {
-            File          = { ' ',  'TSURI' },
-            Package       = { ' ',  'TSNamespace' },
+            File          = { ' ',  'TSURI' },
+            Package       = { ' ',  'TSNamespace' },
             Module        = { ' ',  'TSNamespace' },
-            Namespace     = { ' ',  'TSNamespace' },
-            Interface     = { ' ',  'TSType' },
-            TypeParameter = { ' ',  'TSParameter' },
-            Class         = { ' ',  'TSType' },
+            Namespace     = { ' ',  'TSNamespace' },
+            Interface     = { ' ',  'TSType' },
+            TypeParameter = { ' ',  'TSParameter' },
+            Class         = { ' ',  'TSType' },
             Constructor   = { 'ƒ ',  'TSConstructor' },
             Method        = { 'ƒ ',  'TSMethod' },
             Function      = { 'ƒ ',  'TSFunction' },
-            Property      = { ' ',  'TSMethod' },
-            Field         = { ' ',  'TSField' },
-            Variable      = { ' ',  'TSConstant' },
-            Constant      = { ' ',  'TSConstant' },
-            String        = { ' ',  'TSString' },
-            Number        = { '藍 ', 'TSNumber' },
-            Boolean       = { 'ﲉ ',  'TSBoolean' },
-            Enum          = { '',   'TSType' },
-            Struct        = { ' ',  'TSType' },
-            Array         = { ' ',  'TSConstant' },
-            Object        = { ' ',  'TSType' },
-            Key           = { ' ',  'TSType' },
-            Null          = { 'ﳠ ',  'TSType' },
-            EnumMember    = { ' ',  'TSField' },
-            Event         = { ' ',  'TSType' },
-            Operator      = { 'ﬦ ',  'TSOperator' },
+            Property      = { ' ',  'TSMethod' },
+            Field         = { ' ',  'TSField' },
+            Variable      = { ' ',  'TSConstant' },
+            Constant      = { ' ',  'TSConstant' },
+            String        = { ' ',  'TSString' },
+            Number        = { ' ', 'TSNumber' },
+            Boolean       = { ' ',  'TSBoolean' },
+            Enum          = { ' ',   'TSType' },
+            Struct        = { ' ',  'TSType' },
+            Array         = { ' ',  'TSConstant' },
+            Object        = { ' ',  'TSType' },
+            Key           = { ' ',  'TSType' },
+            Null          = { '󰟢 ',  'TSType' },
+            EnumMember    = { ' ',  'TSField' },
+            Event         = { ' ',  'TSType' },
+            Operator      = { ' ',  'TSOperator' },
             -- ccls
-            TypeAlias     = { ' ',  'TSType' },
-            Parameter     = { ' ',  'TSParameter' },
-            StaticMethod  = { 'ﴂ ',  'TSMethod' },
+            TypeAlias     = { ' ',  'TSType' },
+            Parameter     = { ' ',  'TSParameter' },
+            StaticMethod  = { 'ƒ ',  'TSMethod' },
             Macro         = { ' ',  'TSConstant' },
             -- for completion sb microsoft!!!
-            Text          = { ' ',  'TSString' },
-            Snippet       = { ' ',  'TSField' },
-            Folder        = { '󰉋 ', 'TSConstant'} ,
-            Unit          = { ' ',  'TSNumber' },
-            Value         = { ' ',  'TSParameter' },
+            Text          = { '󰊄 ',  'TSString' },
+            Snippet       = { ' ',  'TSField' },
+            Folder        = { ' ', 'TSConstant'} ,
+            Unit          = { ' ',  'TSNumber' },
+            Value         = { ' ',  'TSParameter' },
         }
     }
 })
@@ -274,7 +285,7 @@ vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
 vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 vim.keymap.set("n", "gk", "<cmd>Lspsaga goto_definition<CR>", { silent = true })
 vim.keymap.set("n", "gi", "<cmd>Lspsaga incoming_calls<CR>", { silent = true })
-vim.keymap.set("n", "gn", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
+-- vim.keymap.set("n", "gn", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 vim.keymap.set("n", "gp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
 vim.keymap.set("n", "?", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
 
@@ -324,7 +335,7 @@ vim.keymap.set("i",
                { noremap = true, silent = true })
 
 
-local signs = { Error = "", Warn = "", Hint = "ﳁ", Info = "" }
+local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -367,32 +378,32 @@ cmp.setup({
 
 require("symbols-outline").setup({
     symbols = {
-        File          = {icon = "", hl = "TSURI"},
-        Package       = {icon = "", hl = "TSNamespace"},
+        File          = {icon = "", hl = "TSURI"},
+        Package       = {icon = "", hl = "TSNamespace"},
         Module        = {icon = "", hl = "TSNamespace"},
-        Namespace     = {icon = "", hl = "TSNamespace"},
-        Interface     = {icon = "", hl = "TSType"},
-        TypeParameter = {icon = "", hl = "TSParameter"},
-        Class         = {icon = "", hl = "TSType"},
+        Namespace     = {icon = "", hl = "TSNamespace"},
+        Interface     = {icon = "", hl = "TSType"},
+        TypeParameter = {icon = "", hl = "TSParameter"},
+        Class         = {icon = "", hl = "TSType"},
         Constructor   = {icon = "ƒ", hl = "TSConstructor"},
         Method        = {icon = "ƒ", hl = "TSMethod"},
         Function      = {icon = "ƒ", hl = "TSFunction"},
-        Property      = {icon = "", hl = "TSMethod"},
-        Field         = {icon = "", hl = "TSField"},
-        Variable      = {icon = "", hl = "TSConstant"},
-        Constant      = {icon = "", hl = "TSConstant"},
-        String        = {icon = "", hl = "TSString"},
-        Number        = {icon = "藍", hl = "TSNumber"},
-        Boolean       = {icon = "ﲉ", hl = "TSBoolean"},
-        Enum          = {icon = "", hl = "TSType"},
-        Struct        = {icon = "", hl = "TSType"},
-        Array         = {icon = "", hl = "TSConstant"},
-        Object        = {icon = "", hl = "TSType"},
-        Key           = {icon = "", hl = "TSType"},
-        Null          = {icon = "ﳠ", hl = "TSType"},
-        EnumMember    = {icon = "", hl = "TSField"},
-        Event         = {icon = "", hl = "TSType"},
-        Operator      = {icon = "ﬦ", hl = "TSOperator"},
+        Property      = {icon = "", hl = "TSMethod"},
+        Field         = {icon = "", hl = "TSField"},
+        Variable      = {icon = "", hl = "TSConstant"},
+        Constant      = {icon = "", hl = "TSConstant"},
+        String        = {icon = "", hl = "TSString"},
+        Number        = {icon = "", hl = "TSNumber"},
+        Boolean       = {icon = "", hl = "TSBoolean"},
+        Enum          = {icon = "", hl = "TSType"},
+        Struct        = {icon = "", hl = "TSType"},
+        Array         = {icon = "", hl = "TSConstant"},
+        Object        = {icon = "", hl = "TSType"},
+        Key           = {icon = "", hl = "TSType"},
+        Null          = {icon = "󰟢", hl = "TSType"},
+        EnumMember    = {icon = "", hl = "TSField"},
+        Event         = {icon = "", hl = "TSType"},
+        Operator      = {icon = "", hl = "TSOperator"},
     }
 })
 
