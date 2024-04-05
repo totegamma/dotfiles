@@ -86,7 +86,7 @@ bindkey '^r' fzf-select-history
 function fzf-get-destination-from-cdr() {
   cdr -l | \
   sed -e 's/^[[:digit:]]*[[:blank:]]*//' | \
-  fzf-tmux -p80% --reverse --border-label " cdr " --no-sort --query "$LBUFFER"
+  fzf-tmux -p80% --reverse --border-label " cdr " --no-sort --query "$LBUFFER" --preview 'lsd $HOME$(echo {} | tr -d "~") --tree --depth 3 --color always --icon always'
 }
 
 function fzf-cdr() {
