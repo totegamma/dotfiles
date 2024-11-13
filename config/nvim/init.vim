@@ -16,17 +16,15 @@ call plug#begin('~/.local/share/nvim/plugged')
     Plug 'totegamma/gotogh.nvim'
     " Visualize
     Plug 'cocopon/iceberg.vim'
-    Plug 'feline-nvim/feline.nvim'
+    Plug 'rebelot/heirline.nvim'
     Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'kristijanhusak/defx-icons'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'kristijanhusak/defx-git'
     Plug 'simrat39/symbols-outline.nvim'
-    Plug 'romgrk/barbar.nvim'
     Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
     Plug 'petertriho/nvim-scrollbar'
-    Plug 'f-person/git-blame.nvim'
     " LanguageServer
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
@@ -87,18 +85,7 @@ vnoremap v $h
 " remap for barbar.nvim
 noremap gt <Cmd>BufferNext<CR>
 noremap gT <Cmd>BufferPrevious<CR>
-noremap gy <Cmd>BufferMoveNext<CR>
-noremap gY <Cmd>BufferMovePrevious<CR>
 noremap gz <Cmd>BufferClose<CR>
-noremap g1 <Cmd>BufferGoto 1<CR>
-noremap g2 <Cmd>BufferGoto 2<CR>
-noremap g3 <Cmd>BufferGoto 3<CR>
-noremap g4 <Cmd>BufferGoto 4<CR>
-noremap g5 <Cmd>BufferGoto 5<CR>
-noremap g6 <Cmd>BufferGoto 6<CR>
-noremap g7 <Cmd>BufferGoto 7<CR>
-noremap g8 <Cmd>BufferGoto 8<CR>
-noremap g9 <Cmd>BufferGoto 9<CR>
 
 noremap go <Cmd>Gotogh<CR>
 noremap gc <Cmd>GotoghCommit<CR>
@@ -170,9 +157,20 @@ require'nvim-treesitter.configs'.setup {
 require('gitsigns').setup({
     on_attach = function(buffer)
         vim.opt.signcolumn = "yes"
-    end
+    end,
+    current_line_blame = true,
+    current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'eol',
+        delay = 0,
+    },
+    current_line_blame_formatter = '<author> <author_time:%R> - <summary>',
 })
-require('feline_config')
+
+vim.api.nvim_set_hl(0, 'GitSignsCurrentLineBlame', { fg = '#6b7089' })
+
+require('hairline_config')
+
 require("scrollbar").setup {
     handlers = {
         cursor = false,
