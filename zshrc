@@ -109,6 +109,19 @@ function fzf-select-file() {
 zle -N fzf-select-file
 bindkey '^y' fzf-select-file
 
+# folder
+function fzf-select-folder() {
+    local destination="$(fd --type d | fzf-tmux -p80% --reverse --border-label ' folder ')"
+    if [ -n "$destination" ]; then
+        BUFFER="cd $destination"
+        zle accept-line
+    else
+        zle reset-prompt
+    fi
+}
+zle -N fzf-select-folder
+bindkey '^o' fzf-select-folder
+
 # ripgrep
 function fzf-rg() {
   # local pattern
