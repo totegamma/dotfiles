@@ -13,7 +13,7 @@
         if [ -n \"$GIT_PREFIX\" ]; then \
             cd $GIT_PREFIX; \
         fi; \
-        git ls-files | grep -v '/' | xargs -I {} git log -1 --format=\"{} - %s - %ad %an\" --date=short -- {}; \
+        git ls-files | grep -v '/' | xargs -I {} git log -1 --format=\"{}%x09%ad%x09%an%x09%s\" --date=short {} | column -t -s '\t'; \
     }; f"
 
     open = !"f() { \
