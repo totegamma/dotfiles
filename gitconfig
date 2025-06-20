@@ -1,0 +1,35 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = totegamma
+	email = github@gammalab.net
+
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+
+[alias]
+
+    ls = !"f() { \
+        git ls-files \"${GIT_PREFIX:-.}\" | grep -v '/' | xargs -I {} git log -1 --format=\"{} - %s - %ad %an\" --date=short -- {}; \
+    }; f"
+
+    open = !"f() { \
+        url=$(git config remote.origin.url); \
+        if [[ \"$url\" == *\"@\"* ]]; then \
+            url=$(echo $url | sed -e 's/:/\\//' -e 's/git@/https:\\/\\//'); \
+        fi; \
+        open $url; \
+    }; f"
+
+    wswitch = !"f() { \
+        url=$(git config remote.origin.url); \
+        name=$(echo $url | awk -F '/' '{print $NF}' | sed -e 's/.git$//'); \
+        dir=\"$name\"_\"$1\"; \
+        git worktree add /tmp/$dir $1 > /dev/null; \
+        echo /tmp/$dir; \
+    }; f"
+
+    wclean = !"f() { \
+        git worktree list | tail -n +2 | awk '{print $1}' | xargs -I {} git worktree remove {}; \
+    }; f"
+
