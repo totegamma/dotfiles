@@ -10,7 +10,10 @@
 [alias]
 
     ls = !"f() { \
-        git ls-files \"${GIT_PREFIX:-.}\" | grep -v '/' | xargs -I {} git log -1 --format=\"{} - %s - %ad %an\" --date=short -- {}; \
+        if [ -n \"$GIT_PREFIX\" ]; then \
+            cd $GIT_PREFIX; \
+        fi; \
+        git ls-files | grep -v '/' | xargs -I {} git log -1 --format=\"{} - %s - %ad %an\" --date=short -- {}; \
     }; f"
 
     open = !"f() { \
