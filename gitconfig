@@ -9,6 +9,11 @@
 
 [alias]
 
+    autocommit = !"f() { \
+        cmd=$(yes | gh copilot suggest -t git \"commit with summarized commit message: $(git diff --staged)\" | grep \"git commit\"); \
+        eval \"$cmd\"; \
+    }; f"
+
     ls = !"f() { \
         if [ -n \"$GIT_PREFIX\" ]; then \
             cd $GIT_PREFIX; \
